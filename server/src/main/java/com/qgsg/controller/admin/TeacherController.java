@@ -34,7 +34,7 @@ public class TeacherController {
     private JwtProperties jwtProperties;
 
     /**
-     * 登录
+     * 教师登录
      *
      * @param teacherLoginDTO
      * @return
