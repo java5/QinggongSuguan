@@ -1,8 +1,5 @@
 package com.qgsg.config.mqtt;
 
-import cn.hutool.json.JSONUtil;
-import com.qgsg.domain.IOTSensor;
-import com.qgsg.dto.MqttCmds;
 import com.qgsg.service.IOTSensorService;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.slf4j.Logger;
@@ -21,13 +18,11 @@ import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.*;
 
-import java.util.Date;
 import java.util.UUID;
 
 /**
  * 实现了对 inboundtopic 中的主题监听，当有消息推送到 inboundtopic 主题上时可以接受
  * MQTT 消费端
- * Create By Spring-2022/10/29
  */
 @Configuration
 @IntegrationComponentScan
@@ -64,13 +59,11 @@ public class MqttInboundConfiguration {
     }
 
     //  配置Client，监听Topic
-    //  如果我要配置多个client，应该怎么处理呢？这个也简单, 模仿此方法，多写几个client
     @Bean
     public MessageProducer inbound() {
         String[] inboundTopics = mqttProperties.getReceiveTopics().split(",");
         MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(mqttProperties.getClientId() + "_inbound",
                 mqttInClient(), inboundTopics);
-//        adapter.addTopic();  // 添加 TOPICS
         adapter.setCompletionTimeout(1000 * 5);
         adapter.setQos(0);
         adapter.setConverter(new DefaultPahoMessageConverter());
@@ -82,7 +75,11 @@ public class MqttInboundConfiguration {
     @Bean
     @ServiceActivator(inputChannel = "mqttInputChannel")  // 异步处理
     public MessageHandler handler() {
+
+        final String[] msg = {null};
         return new MessageHandler() {
+
+
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
                 Object payload = message.getPayload();
@@ -99,7 +96,11 @@ public class MqttInboundConfiguration {
                     System.out.println(handMessage);
                 }
             }
+
+
+
         };
+
     }
 
 }
