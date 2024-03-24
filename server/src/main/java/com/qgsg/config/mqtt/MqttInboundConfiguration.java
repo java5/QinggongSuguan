@@ -1,5 +1,6 @@
 package com.qgsg.config.mqtt;
 
+import cn.hutool.json.JSONUtil;
 import com.qgsg.service.IOTSensorService;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.slf4j.Logger;
@@ -28,6 +29,8 @@ import java.util.UUID;
 @IntegrationComponentScan
 public class MqttInboundConfiguration {
     private static Logger LOGGER = LoggerFactory.getLogger(MqttInboundConfiguration.class);
+
+    private volatile String lastReceivedMessage;
 
     @Autowired
     private MqttConfiguration mqttProperties;
@@ -89,18 +92,16 @@ public class MqttInboundConfiguration {
                 String recvTopic = (String) messageHeaders.get(MqttHeaders.RECEIVED_TOPIC);
                 assert recvTopic != null;
                 if (recvTopic.startsWith("qgsg")) {
-
                     String handMessage = "接收到的消息为"+payload;
+                    lastReceivedMessage="接收到的消息为"+payload;
                     LOGGER.debug(handMessage);
-
-                    System.out.println(handMessage);
+                    System.out.println(lastReceivedMessage);
                 }
             }
-
-
-
         };
-
+    }
+    public String getLastReceivedMessage() {
+        return lastReceivedMessage;
     }
 
 }
