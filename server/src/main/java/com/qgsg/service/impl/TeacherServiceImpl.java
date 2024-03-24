@@ -19,7 +19,7 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherMapper teacherMapper;
 
     /**
-     * 员工登录
+     * 教师登录
      *
      * @param teacherLoginDTO
      * @return
