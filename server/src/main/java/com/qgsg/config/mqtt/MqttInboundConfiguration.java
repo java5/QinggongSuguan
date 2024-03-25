@@ -1,8 +1,12 @@
 package com.qgsg.config.mqtt;
 
 import cn.hutool.json.JSONUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.qgsg.dto.MqttDTO;
 import com.qgsg.service.IOTSensorService;
+import com.qgsg.service.impl.MqttServiceImpl;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +23,10 @@ import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannel
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSON;
 
+import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -28,6 +35,7 @@ import java.util.UUID;
  */
 @Configuration
 @IntegrationComponentScan
+@Slf4j
 public class MqttInboundConfiguration {
     private static Logger LOGGER = LoggerFactory.getLogger(MqttInboundConfiguration.class);
 
@@ -38,6 +46,8 @@ public class MqttInboundConfiguration {
     private MqttConfiguration mqttProperties;
     @Autowired
     private IOTSensorService sensorService;
+    @Autowired
+    private MqttServiceImpl mqttServiceimpl;
 
     @Bean
     public MessageChannel mqttInputChannel() {
@@ -117,11 +127,16 @@ public class MqttInboundConfiguration {
                 assert recvTopic != null;
                 if (recvTopic.startsWith("qgsg")) {
                     String handMessage = "接收到的消息为"+payload;
-                    lastReceivedMessage="接收到的消息为"+payload;
+                    lastReceivedMessage= (String) payload;
                     LOGGER.debug(handMessage);
                     System.out.println(lastReceivedMessage);
                 }
+                String json = lastReceivedMessage;
+                MqttDTO mqtt = JSON.parseObject(json, MqttDTO.class);
+
+                mqttServiceimpl.add();
             }
+
         };
     }
 }
