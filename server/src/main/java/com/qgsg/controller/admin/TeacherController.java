@@ -1,5 +1,6 @@
 package com.qgsg.controller.admin;
 
+import com.qgsg.config.mqtt.MqttInboundConfiguration;
 import com.qgsg.constant.JwtClaimsConstant;
 import com.qgsg.dto.TeacherLoginDTO;
 import com.qgsg.entity.Teacher;
@@ -32,6 +33,8 @@ public class TeacherController {
     private TeacherService teacherService;
     @Autowired
     private JwtProperties jwtProperties;
+    @Autowired
+    private MqttInboundConfiguration mqttInboundConfiguration;
 
     /**
      * 教师登录
@@ -41,6 +44,15 @@ public class TeacherController {
      */
     @PostMapping("/login")
     public Result<TeacherLoginVO> login(@RequestBody TeacherLoginDTO teacherLoginDTO) {
+
+
+        //mqtt test
+        log.info("mqtt测试开始");
+        String lastMessage = mqttInboundConfiguration.getLastReceivedMessage();
+        System.out.println("Controller层获取到的最后接收到的消息: " + lastMessage);
+        log.info("mqtt测试结束");
+
+
         log.info("教师登录：{}", teacherLoginDTO);
 
         Teacher teacher = teacherService.login(teacherLoginDTO);

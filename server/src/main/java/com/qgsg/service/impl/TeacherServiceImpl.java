@@ -2,6 +2,7 @@ package com.qgsg.service.impl;
 
 import com.qgsg.constant.MessageConstant;
 import com.qgsg.constant.StatusConstant;
+import com.qgsg.controller.admin.MqttController;
 import com.qgsg.dto.TeacherLoginDTO;
 import com.qgsg.entity.Teacher;
 import com.qgsg.exception.AccountLockedException;
@@ -47,6 +48,7 @@ public class TeacherServiceImpl implements TeacherService {
             //账号被锁定
             throw new AccountLockedException(MessageConstant.ACCOUNT_LOCKED);
         }
+
 
         //3、返回实体对象
         return teacher;
