@@ -133,8 +133,7 @@ public class MqttInboundConfiguration {
                 }
                 String json = lastReceivedMessage;
                 MqttDTO mqtt = JSON.parseObject(json, MqttDTO.class);
-
-                mqttServiceimpl.add();
+                mqttServiceimpl.add(mqtt);
             }
 
         };
