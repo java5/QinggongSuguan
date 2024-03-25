@@ -5,7 +5,7 @@
 
 #### 软件架构
 软件架构说明 
-软件：springboot+vue
+软件：springboot+Android
 硬件：指纹识别系统
 
 
