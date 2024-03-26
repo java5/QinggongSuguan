@@ -40,7 +40,7 @@ qgsg:
 
 com:
   mqtt:
-    url: ws://127.0.0.1:8083 #tcp://broker.emqx.io
+    url: tcp://broker.emqx.io #tcp://broker.emqx.io #ws://127.0.0.1:8083
     clientId: mqtt_test_spring
     receiveTopics: qgsg/#
     sendTopics: qgsg/#

@@ -20,9 +20,4 @@ import org.springframework.stereotype.Service;
             int zhuangtai=mqtt.getZhuangtai();
             mqttMapper.addmqtt(id,zhuangtai);
         }
-
-
-
-
-
 }

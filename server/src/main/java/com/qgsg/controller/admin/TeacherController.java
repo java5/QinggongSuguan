@@ -2,6 +2,7 @@ package com.qgsg.controller.admin;
 
 import com.qgsg.config.mqtt.MqttInboundConfiguration;
 import com.qgsg.constant.JwtClaimsConstant;
+import com.qgsg.dto.TeacherDTO;
 import com.qgsg.dto.TeacherLoginDTO;
 import com.qgsg.entity.Teacher;
 import com.qgsg.properties.JwtProperties;
@@ -10,6 +11,7 @@ import com.qgsg.service.TeacherService;
 import com.qgsg.utils.JwtUtil;
 import com.qgsg.vo.TeacherLoginVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +27,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/admin/teacher")
-@Api(tags = "管理员老师相关接口")
+@Api(tags = "管理员老师相接口")
 @Slf4j
 public class TeacherController {
 
@@ -33,8 +35,6 @@ public class TeacherController {
     private TeacherService teacherService;
     @Autowired
     private JwtProperties jwtProperties;
-    @Autowired
-    private MqttInboundConfiguration mqttInboundConfiguration;
 
     /**
      * 教师登录
@@ -44,14 +44,6 @@ public class TeacherController {
      */
     @PostMapping("/login")
     public Result<TeacherLoginVO> login(@RequestBody TeacherLoginDTO teacherLoginDTO) {
-
-
-        //mqtt test
-        log.info("mqtt测试开始");
-        String lastMessage = mqttInboundConfiguration.getLastReceivedMessage();
-        System.out.println("Controller层获取到的最后接收到的消息: " + lastMessage);
-        log.info("mqtt测试结束");
-
 
         log.info("教师登录：{}", teacherLoginDTO);
 
@@ -85,4 +77,17 @@ public class TeacherController {
         return Result.success();
     }
 
+
+    /**
+     * 新增管理员
+     * @param teacherDTO
+     * @return
+     */
+    @PostMapping
+    @ApiOperation("注册管理员")
+    public Result save(@RequestBody TeacherDTO teacherDTO){
+        log.info("注册管理员:{}",teacherDTO);
+        teacherService.save(teacherDTO);
+        return Result.success();
+    }
 }

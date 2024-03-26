@@ -1,5 +1,6 @@
 package com.qgsg.service;
 
+import com.qgsg.dto.TeacherDTO;
 import com.qgsg.dto.TeacherLoginDTO;
 import com.qgsg.entity.Teacher;
 
@@ -12,4 +13,10 @@ public interface TeacherService {
      */
     Teacher login(TeacherLoginDTO teacherLoginDTO);
 
+
+    /**
+     * 注册管理员
+     * @param teacherDTO
+     */
+    void save(TeacherDTO teacherDTO);
 }

@@ -15,8 +15,10 @@ public class TeacherDTO implements Serializable {
 
     private String phone;
 
-    private String sex;
+    private String password;
 
-    private String idNumber;
+//    private String sex;
+
+//    private String idNumber;
 
 }
