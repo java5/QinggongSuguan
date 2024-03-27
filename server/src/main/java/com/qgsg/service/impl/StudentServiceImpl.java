@@ -29,7 +29,7 @@ public class StudentServiceImpl implements StudentService {
             student.setFinger_print("指纹信息");
         }
         student.setSign_time(LocalDateTime.now());
-        student.setSign_status(1);
+        student.setSign_status(0);
         BeanUtils.copyProperties(studentDTO,student);
         log.info("{}",student);
         studentMapper.insert(student);
