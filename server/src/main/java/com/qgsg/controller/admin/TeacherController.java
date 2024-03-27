@@ -2,6 +2,7 @@ package com.qgsg.controller.admin;
 
 import com.qgsg.config.mqtt.MqttInboundConfiguration;
 import com.qgsg.constant.JwtClaimsConstant;
+import com.qgsg.dto.StudentDTO;
 import com.qgsg.dto.TeacherDTO;
 import com.qgsg.dto.TeacherLoginDTO;
 import com.qgsg.entity.Teacher;
@@ -14,10 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -88,6 +86,19 @@ public class TeacherController {
     public Result save(@RequestBody TeacherDTO teacherDTO){
         log.info("注册管理员:{}",teacherDTO);
         teacherService.save(teacherDTO);
+        return Result.success();
+    }
+
+    /**
+     * 修改管理员
+     * @param teacherDTO
+     * @return
+     */
+    @PutMapping("/updateTeacher")
+    @ApiOperation("修改管理员")
+    public Result update(@RequestBody TeacherDTO teacherDTO){
+        log.info("修改学生{}",teacherDTO);
+        teacherService.updateTeacher(teacherDTO);
         return Result.success();
     }
 }

@@ -27,7 +27,7 @@ public class Teacher implements Serializable {
     private String phone;
 
 
-    private String idNumber;
+    //private String idNumber;
 
     //private Integer status;
     private String authority;

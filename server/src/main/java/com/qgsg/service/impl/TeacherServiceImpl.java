@@ -3,8 +3,10 @@ package com.qgsg.service.impl;
 import com.qgsg.constant.MessageConstant;
 import com.qgsg.constant.StatusConstant;
 import com.qgsg.controller.admin.MqttController;
+import com.qgsg.dto.StudentDTO;
 import com.qgsg.dto.TeacherDTO;
 import com.qgsg.dto.TeacherLoginDTO;
+import com.qgsg.entity.Student;
 import com.qgsg.entity.Teacher;
 import com.qgsg.exception.AccountLockedException;
 import com.qgsg.exception.AccountNotFoundException;
@@ -70,6 +72,18 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher= new Teacher();
         BeanUtils.copyProperties(teacherDTO,teacher);
         teacherMapper.insert(teacher);
+    }
+
+
+    /**
+     * 修改管理员信息
+     * @param teacherDTO
+     */
+    @Override
+    public void updateTeacher(TeacherDTO teacherDTO) {
+        Teacher teacher= new Teacher();
+        BeanUtils.copyProperties(teacherDTO,teacher);
+        teacherMapper.update(teacher);
     }
 
 }
