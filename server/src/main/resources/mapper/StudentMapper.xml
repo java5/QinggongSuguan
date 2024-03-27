@@ -7,4 +7,20 @@
         insert into student (id,number, name, sex, age, phone, finger_print, dormitory_number, building_number,sign_status,sign_time)
         values (#{id},#{number},#{name},#{sex},#{age},#{phone},#{finger_print},#{dormitory_number},#{building_number},#{sign_status},#{sign_time})
     </insert>
+
+
+    <update id="update">
+        update student
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="dormitory_number != null">dormitory_number = #{dormitory_number},</if>
+            <if test="building_number != null">building_number = #{building_number},</if>
+            <if test="finger_print != null">finger_print = #{finger_print},</if>
+            <if test="sign_status != null">sign_status = #{sign_status},</if>
+        </set>
+        where number = #{number}
+    </update>
 </mapper>

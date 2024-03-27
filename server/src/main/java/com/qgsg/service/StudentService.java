@@ -8,4 +8,16 @@ public interface StudentService {
      * @param studentDTO
      */
     void saveStudent(StudentDTO studentDTO);
+
+    /**
+     * 查找学生
+     * @param studentDTO
+     */
+    void search(StudentDTO studentDTO);
+
+    /**
+     * 修改学生信息
+     * @param studentDTO
+     */
+    void updateStudent(StudentDTO studentDTO);
 }

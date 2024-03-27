@@ -18,6 +18,8 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentMapper studentMapper;
 
+
+
     /**
      * 新增学生
      * @param studentDTO
@@ -33,5 +35,29 @@ public class StudentServiceImpl implements StudentService {
         BeanUtils.copyProperties(studentDTO,student);
         log.info("{}",student);
         studentMapper.insert(student);
+    }
+
+
+
+
+    /**
+     * 根据学号查学生
+     * @param studentDTO
+     */
+    @Override
+    public void search(StudentDTO studentDTO) {
+
+    }
+
+
+    /**
+     * 修改学生信息
+     * @param studentDTO
+     */
+    @Override
+    public void updateStudent(StudentDTO studentDTO) {
+        Student student= new Student();
+        BeanUtils.copyProperties(studentDTO,student);
+        studentMapper.update(student);
     }
 }

@@ -12,5 +12,9 @@ public interface StudentMapper {
      */
     void insert(Student student);
 
-
+    /**
+     * 修改学生数据
+     * @param student
+     */
+    void update(Student student);
 }
