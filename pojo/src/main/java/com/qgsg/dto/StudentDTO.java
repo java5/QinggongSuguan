@@ -4,20 +4,20 @@ import lombok.Data;
 
 @Data
 public class StudentDTO {
-    String number;
+    private String number;
 
-    String name;
+    private String name;
 
-    String sex;
+    private String sex;
 
-    int age;
+    private int age;
 
-    String phone;
+    private String phone;
 
-    String dormitory_number;
+    private String dormitoryNumber;
 
-    String building_number;
+    private String buildingNumber;
 
-    String finger_print;
+    private String fingerPrint;
 
 }

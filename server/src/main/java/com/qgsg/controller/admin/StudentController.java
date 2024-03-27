@@ -72,7 +72,7 @@ public class StudentController {
     @GetMapping("/{number}")
     @ApiOperation("根据学号查询学生信息")
     public Result<Student> getByNubmer(@PathVariable String number){
-        log.info("{}：",number);
+        log.info("：{}",number);
         Student student = studentService.getByNumber(String.valueOf(number));
         return Result.success(student);
     }

@@ -21,12 +21,12 @@ public class StudentVO {
 
     String phone;
 
-    String dormitory_number;
+    String dormitoryNumber;
 
-    String building_number;
+    String buildingNumber;
 
-    String finger_print;
+    String fingerPrint;
 
-    String sign_status;
+    String signStatus;
 
 }

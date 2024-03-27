@@ -1,37 +1,40 @@
 package com.qgsg.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.alibaba.druid.stat.TableStat;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
+import lombok.*;
 
 import java.time.LocalDateTime;
+
+import static com.alibaba.druid.stat.TableStat.*;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class Student {
-    String id;
+    private String id;
 
-    String number;
+    private String number;
 
-    String name;
+    private String name;
 
-    String sex;
+    private String sex;
 
-    int age;
+    private int age;
 
-    String phone;
+    private String phone;
 
-    String dormitory_number;
+    private String dormitoryNumber;
 
-    String building_number;
+    private String buildingNumber;
 
-    String finger_print;
 
-    int sign_status;
+    private String fingerPrint;
 
-    LocalDateTime sign_time;
+    private int signStatus;
+
+    private LocalDateTime signTime;
 
 }

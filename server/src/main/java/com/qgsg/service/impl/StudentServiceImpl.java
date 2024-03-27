@@ -32,12 +32,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void saveStudent(StudentDTO studentDTO) {
         Student student = new Student();
-        if (student.getFinger_print() == null) {
-            student.setFinger_print("指纹信息");
-        }
-        student.setSign_time(LocalDateTime.now());
-        student.setSign_status(0);
         BeanUtils.copyProperties(studentDTO,student);
+        student.setSignTime(LocalDateTime.now());
+        student.setSignStatus(0);
         log.info("{}",student);
         studentMapper.insert(student);
     }
@@ -73,6 +70,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getByNumber(String number) {
         Student student=studentMapper.getByNumber(number);
+        log.info("{}",student);
         return student;
     }
 }
