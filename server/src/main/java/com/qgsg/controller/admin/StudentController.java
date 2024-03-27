@@ -63,4 +63,17 @@ public class StudentController {
         PageResult pageResult=studentService.page(studentPageQueryDTO);
         return Result.success(pageResult);
     }
+
+    /**
+     * 根据学号查询学生信息
+     * @param number
+     * @return
+     */
+    @GetMapping("/{number}")
+    @ApiOperation("根据学号查询学生信息")
+    public Result<Student> getByNubmer(@PathVariable String number){
+        log.info("{}：",number);
+        Student student = studentService.getByNumber(String.valueOf(number));
+        return Result.success(student);
+    }
 }

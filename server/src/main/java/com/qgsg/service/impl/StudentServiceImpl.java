@@ -63,4 +63,16 @@ public class StudentServiceImpl implements StudentService {
         Page<StudentVO> studentVO = studentMapper.pageQuery(studentPageQueryDTO);
         return new PageResult(studentVO.getTotal(), studentVO.getResult());
     }
+
+
+    /**
+     * 根据学号查学生
+     * @param number
+     * @return
+     */
+    @Override
+    public Student getByNumber(String number) {
+        Student student=studentMapper.getByNumber(number);
+        return student;
+    }
 }

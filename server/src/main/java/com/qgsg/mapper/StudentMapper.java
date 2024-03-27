@@ -5,6 +5,7 @@ import com.qgsg.dto.StudentPageQueryDTO;
 import com.qgsg.entity.Student;
 import com.qgsg.vo.StudentVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface StudentMapper {
@@ -22,6 +23,18 @@ public interface StudentMapper {
     void update(Student student);
 
 
+    /**
+     * 学生分页查询
+     * @param studentPageQueryDTO
+     * @return
+     */
     Page<StudentVO> pageQuery(StudentPageQueryDTO studentPageQueryDTO);
 
+    /**
+     * 根据学生查询学生
+     * @param number
+     * @return
+     */
+    @Select("select * from student where number = #{number}")
+    Student getByNumber(String number);
 }

@@ -2,6 +2,7 @@ package com.qgsg.service;
 
 import com.qgsg.dto.StudentDTO;
 import com.qgsg.dto.StudentPageQueryDTO;
+import com.qgsg.entity.Student;
 import com.qgsg.result.PageResult;
 
 public interface StudentService {
@@ -20,8 +21,15 @@ public interface StudentService {
     void updateStudent(StudentDTO studentDTO);
 
     /**
-     * 查找学生
+     * 学生分页查询
      * @param studentPageQueryDTO
      */
     PageResult page(StudentPageQueryDTO studentPageQueryDTO);
+
+    /**
+     * 根据学号查询
+     * @param number
+     * @return
+     */
+    Student getByNumber(String number);
 }
