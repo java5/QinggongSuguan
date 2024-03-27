@@ -1,7 +1,9 @@
 package com.qgsg.controller.admin;
 
 import com.qgsg.dto.StudentDTO;
+import com.qgsg.dto.StudentPageQueryDTO;
 import com.qgsg.entity.Student;
+import com.qgsg.result.PageResult;
 import com.qgsg.result.Result;
 import com.qgsg.service.StudentService;
 import io.swagger.annotations.Api;
@@ -34,11 +36,6 @@ public class StudentController {
         return Result.success();
     }
 
-    //    @GetMapping("/searchStudent")
-//    @ApiOperation("根据id查学生")
-//    public Result<List<Student>> list(@RequestBody StudentDTO studentDTO) {
-//        return Result.success();
-//    }
 
     /**
      * 修改学生
@@ -54,4 +51,16 @@ public class StudentController {
     }
 
 
+    /**
+     * 学生分页查询
+     * @param studentPageQueryDTO
+     * @return
+     */
+    @GetMapping("/page")
+    @ApiOperation("学生分页查询")
+    public Result<PageResult> page(StudentPageQueryDTO studentPageQueryDTO){
+        log.info("分页查询：{}",studentPageQueryDTO);
+        PageResult pageResult=studentService.page(studentPageQueryDTO);
+        return Result.success(pageResult);
+    }
 }
