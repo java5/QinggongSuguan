@@ -69,7 +69,6 @@ public class TeacherServiceImpl implements TeacherService {
     public void save(TeacherDTO teacherDTO) {
         Teacher teacher= new Teacher();
         BeanUtils.copyProperties(teacherDTO,teacher);
-        teacher.setAuthority("管理员");
         teacherMapper.insert(teacher);
     }
 

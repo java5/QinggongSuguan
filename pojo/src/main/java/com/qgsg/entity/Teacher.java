@@ -15,9 +15,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Teacher implements Serializable {
 
-    //private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String id;
 
     private String username;
 
@@ -27,21 +26,10 @@ public class Teacher implements Serializable {
 
     private String phone;
 
-    //private String sex;
 
     private String idNumber;
 
     //private Integer status;
     private String authority;
-
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//    private LocalDateTime createTime;
-//
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//    private LocalDateTime updateTime;
-
-//    private Long createUser;
-//
-//    private Long updateUser;
 
 }

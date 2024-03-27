@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class TeacherLoginVO implements Serializable {
 
     @ApiModelProperty("主键值")
-    private Long id;
+    private String id;
 
     @ApiModelProperty("用户名")
     private String userName;

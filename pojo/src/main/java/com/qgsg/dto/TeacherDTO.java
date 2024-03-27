@@ -7,8 +7,6 @@ import java.io.Serializable;
 @Data
 public class TeacherDTO implements Serializable {
 
-    private Long id;
-
     private String username;
 
     private String name;
@@ -17,8 +15,6 @@ public class TeacherDTO implements Serializable {
 
     private String password;
 
-//    private String sex;
-
-//    private String idNumber;
+    private String authority;
 
 }
