@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface StudentMapper {
 
@@ -32,7 +34,7 @@ public interface StudentMapper {
     Page<StudentVO> pageQuery(StudentPageQueryDTO studentPageQueryDTO);
 
     /**
-     * 根据学生查询学生
+     * 根据学号查询学生
      * @param number
      * @return
      */
@@ -45,4 +47,12 @@ public interface StudentMapper {
      */
     @Delete("delete from student where number=#{number}")
     void deleteByNumber(String number);
+
+    //根据宿舍id查询学生
+    List<Long> select(List<Long> dormitoryIds);
+
+    void updateDormitoryNumber(String dormitoryNumber);
+    //查询所有学生信息用于某些学生关联了所修改的宿舍也进行修改新的宿舍号
+    @Select("select * from student ")
+    List<Student> selectAll();
 }

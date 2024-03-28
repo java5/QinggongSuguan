@@ -34,6 +34,22 @@
                 and number=#{number}
             </if>
         </where>
-
     </select>
+
+
+    <select id="select" resultType="java.lang.Long">
+        select id from student where dormitory_id in
+        <foreach collection="dormitoryIds" item="dormitoryId" separator="," open="(" close=")">
+            #{dormitoryId}
+        </foreach>
+    </select>
+
+    <update id="updateDormitoryNumber">
+        update student
+        <set>
+            <if test="dormitoryNumber != null">
+                dormitory_number = #{dormitoryNumber},
+            </if>
+        </set>
+    </update>
 </mapper>

@@ -38,7 +38,7 @@ public class StudentServiceImpl implements StudentService {
     public void saveStudent(StudentDTO studentDTO) {
         Student student = new Student();
         if (student.getFingerPrint() == null) {
-            student.setFingerPrint("指纹信息");
+            student.setFingerPrint("默认指纹信息");
         }
         student.setSignTime(LocalDateTime.now());
         student.setSignStatus(0);
@@ -105,9 +105,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(List<String> numbers) {
         log.info("number:{}",numbers);
-    for(String number:numbers){
-        log.info(number);
-        studentMapper.deleteByNumber(number);
-    }
+        for(String number:numbers){
+            log.info(number);
+            studentMapper.deleteByNumber(number);
+        }
     }
 }
