@@ -25,7 +25,6 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherMapper teacherMapper;
 
 
-
     /**
      * 教师登录
      *
@@ -84,6 +83,15 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher= new Teacher();
         BeanUtils.copyProperties(teacherDTO,teacher);
         teacherMapper.update(teacher);
+    }
+
+    /**
+     * 删除管理员
+     * @param id
+     */
+    @Override
+    public void deleteTeacher(int id) {
+    teacherMapper.deleteById(id);
     }
 
 }

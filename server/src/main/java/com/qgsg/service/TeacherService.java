@@ -26,4 +26,10 @@ public interface TeacherService {
      * @param teacherDTO
      */
     void updateTeacher(TeacherDTO teacherDTO);
+
+    /**
+     * 删除管理员功能
+     * @param id
+     */
+    void deleteTeacher(int id);
 }

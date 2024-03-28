@@ -2,6 +2,7 @@ package com.qgsg.mapper;
 
 import com.qgsg.entity.Student;
 import com.qgsg.entity.Teacher;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -31,4 +32,12 @@ public interface TeacherMapper {
      * @param teacher
      */
     void update(Teacher teacher);
+
+
+    /**
+     * 删除管理员功能
+     * @param id
+     */
+    @Delete("delete from housemaster where id=#{id}")
+    void deleteById(int id);
 }

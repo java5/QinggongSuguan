@@ -14,6 +14,7 @@ import com.qgsg.vo.TeacherLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -99,6 +100,19 @@ public class TeacherController {
     public Result update(@RequestBody TeacherDTO teacherDTO){
         log.info("修改学生{}",teacherDTO);
         teacherService.updateTeacher(teacherDTO);
+        return Result.success();
+    }
+
+    /**
+     * 删除管理员
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    @ApiOperation("删除管理员")
+    public Result delete(@PathVariable int id){
+        log.info("删除管理员");
+        teacherService.deleteTeacher(id);
         return Result.success();
     }
 }
