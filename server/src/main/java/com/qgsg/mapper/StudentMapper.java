@@ -5,6 +5,7 @@ import com.qgsg.dto.StudentPageQueryDTO;
 import com.qgsg.entity.Student;
 import com.qgsg.vo.StudentVO;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -55,4 +56,9 @@ public interface StudentMapper {
     //查询所有学生信息用于某些学生关联了所修改的宿舍也进行修改新的宿舍号
     @Select("select * from student ")
     List<Student> selectAll();
+
+    @Insert("insert into sign (id,number, name, sign_status, sign_time,dormitory_number) " +
+            "values " +
+            "(#{id},#{number},#{name},#{signStatus},#{signTime},#{dormitoryNumber})")
+    void insertsign(Student student);
 }

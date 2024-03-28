@@ -52,6 +52,7 @@ public class StudentServiceImpl implements StudentService {
             log.info("{}",student);
             studentMapper.insert(student);
         }
+        studentMapper.insertsign(student);
     }
 //    @Override
 //    public void saveStudent(StudentDTO studentDTO) {
