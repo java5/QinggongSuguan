@@ -2,9 +2,13 @@ package com.qgsg.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.qgsg.constant.MessageConstant;
 import com.qgsg.dto.StudentDTO;
 import com.qgsg.dto.StudentPageQueryDTO;
+import com.qgsg.entity.Dormitory;
 import com.qgsg.entity.Student;
+import com.qgsg.exception.InsufficientCapacityException;
+import com.qgsg.mapper.DormitoryMapper;
 import com.qgsg.mapper.StudentMapper;
 import com.qgsg.result.PageResult;
 import com.qgsg.service.StudentService;
@@ -23,9 +27,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentMapper studentMapper;
-
-
-
+    @Autowired
+    private DormitoryMapper dormitoryMapper;
 
     /**
      * 新增学生
@@ -34,12 +37,31 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void saveStudent(StudentDTO studentDTO) {
         Student student = new Student();
-        BeanUtils.copyProperties(studentDTO,student);
+        if (student.getFingerPrint() == null) {
+            student.setFingerPrint("指纹信息");
+        }
         student.setSignTime(LocalDateTime.now());
         student.setSignStatus(0);
-        log.info("{}",student);
-        studentMapper.insert(student);
+        Dormitory dormitory=dormitoryMapper.selectDormitory(studentDTO.getDormitoryNumber());
+        if(dormitory.getActualCapacity()>=dormitory.getAccommodationCapacity())
+        {
+            throw new InsufficientCapacityException(MessageConstant.CAPACITY_NOT_ADEQUATE);
+        }else {
+            dormitoryMapper.updateNumberOfPeople(dormitory.getActualCapacity()+1);
+            BeanUtils.copyProperties(studentDTO,student);
+            log.info("{}",student);
+            studentMapper.insert(student);
+        }
     }
+//    @Override
+//    public void saveStudent(StudentDTO studentDTO) {
+//        Student student = new Student();
+//        BeanUtils.copyProperties(studentDTO,student);
+//        student.setSignTime(LocalDateTime.now());
+//        student.setSignStatus(0);
+//        log.info("{}",student);
+//        studentMapper.insert(student);
+//    }
 
     /**
      * 修改学生信息
@@ -87,7 +109,5 @@ public class StudentServiceImpl implements StudentService {
         log.info(number);
         studentMapper.deleteByNumber(number);
     }
-
-
     }
 }

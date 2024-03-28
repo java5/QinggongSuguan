@@ -82,7 +82,7 @@ public class StudentController {
      * @param numbers
      * @return
      */
-    @DeleteMapping
+    @DeleteMapping("/deletestudent")
     @ApiOperation("开除学生")
     public Result delete(@RequestBody List<String> numbers){
         log.info("删除学生");

@@ -108,7 +108,7 @@ public class TeacherController {
      * @param id
      * @return
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteteacher/{id}")
     @ApiOperation("删除管理员")
     public Result delete(@PathVariable int id){
         log.info("删除管理员");
