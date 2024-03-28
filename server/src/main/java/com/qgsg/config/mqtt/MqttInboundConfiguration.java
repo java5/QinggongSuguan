@@ -58,17 +58,12 @@ public class MqttInboundConfiguration {
     @Bean
     public MqttPahoClientFactory mqttInClient() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
-        // 分割并设置MQTT服务器的URL
         String[] mqttServerUrls = mqttProperties.getUrl().split(",");
         MqttConnectOptions options = new MqttConnectOptions();
         options.setServerURIs(mqttServerUrls);
-
-        // 设置认证信息
         options.setUserName(mqttProperties.getUsername());
         options.setPassword(mqttProperties.getPassword().toCharArray());
-        // 设置心跳间隔为2分钟
         options.setKeepAliveInterval(2);
-
         //接受离线消息
         options.setCleanSession(false);
         factory.setConnectionOptions(options);
@@ -77,27 +72,17 @@ public class MqttInboundConfiguration {
     }
 
     /**
-     * 创建一个用于接收MQTT消息的消息生产者。
-     * 这个方法配置了MqttPahoMessageDrivenChannelAdapter，它从指定的MQTT主题中消费消息，
-     * 然后将这些消息发送到应用内部的消息通道。
-     *
      * @return MessageProducer 返回一个消息生产者，它是一个MqttPahoMessageDrivenChannelAdapter实例，
      *         用于从MQTT服务器接收消息。
      */
     @Bean
     public MessageProducer inbound() {
-        // 根据配置的接收主题进行分割，生成主题数组
         String[] inboundTopics = mqttProperties.getReceiveTopics().split(",");
-        // 创建MqttPahoMessageDrivenChannelAdapter实例，用于从MQTT接收消息
         MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(mqttProperties.getClientId() + "_inbound",
                 mqttInClient(), inboundTopics);
-        // 设置完成超时时间
         adapter.setCompletionTimeout(1000 * 5);
-        // 设置QoS等级为0，保证消息至少发送一次
         adapter.setQos(0);
-        // 设置消息转换器，用于将MQTT消息转换为Spring消息
         adapter.setConverter(new DefaultPahoMessageConverter());
-        // 设置输出通道，将接收到的消息发送到这个通道
         adapter.setOutputChannel(mqttInputChannel());
         return adapter;
     }
@@ -105,7 +90,7 @@ public class MqttInboundConfiguration {
     /**
      * 创建一个消息处理器，用于处理来自MQTT输入通道的消息。
      * 这个处理器会检查接收到的消息的主题，如果主题以"qgsg"开头，
-     * 则会记录并打印出消息的内容。
+     * 则会处理消息
      *
      * @return MessageHandler 返回一个自定义的消息处理器，用于处理MQTT输入通道中的消息。
      */
@@ -133,7 +118,8 @@ public class MqttInboundConfiguration {
                 }
                 String json = lastReceivedMessage;
                 MqttDTO mqtt = JSON.parseObject(json, MqttDTO.class);
-                mqttServiceimpl.add(mqtt);
+                log.info("接收的：{}",mqtt);
+                mqttServiceimpl.update(mqtt);
             }
 
         };

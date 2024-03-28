@@ -7,17 +7,24 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 
-    @Slf4j
+
+@Slf4j
     @Service
     public class MqttServiceImpl implements MqttService {
 
         @Autowired
         private MqttMapper mqttMapper;
 
-        public void add(MqttDTO mqtt){
-            int id = mqtt.getId();
-            int zhuangtai=mqtt.getZhuangtai();
-            mqttMapper.addmqtt(id,zhuangtai);
+        public void update(MqttDTO mqtt){
+//            int id = mqtt.getId();
+//            int zhuangtai=mqtt.getZhuangtai();
+            String number = mqtt.getNumber();
+            int signStatus = mqtt.getSignStatus();
+            mqtt.setSignTime(LocalDateTime.now());
+            LocalDateTime signTime= mqtt.getSignTime();
+            log.info("mpl:number{}status{}time{}",number,signStatus,signTime);
+            mqttMapper.updatemqtt(number,signStatus,signTime);
         }
 }
