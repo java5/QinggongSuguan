@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Teacher implements Serializable {
 
-
     private String id;
 
     private String username;
@@ -26,10 +25,6 @@ public class Teacher implements Serializable {
 
     private String phone;
 
-
-    //private String idNumber;
-
-    //private Integer status;
     private String authority;
 
 }

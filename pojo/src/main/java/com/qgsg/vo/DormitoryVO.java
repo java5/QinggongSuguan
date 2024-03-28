@@ -10,9 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DormitoryVO {
-    private Long id;
+    private int id;
+
     private String dormitoryNumber;
+
     private int accommodationCapacity;
+
     private int actualCapacity;
+
     private String buildingNumber;
 }
