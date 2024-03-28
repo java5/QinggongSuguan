@@ -145,8 +145,7 @@
             <dependency>
                 <groupId>org.eclipse.paho</groupId>
                 <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
-                <!-- 替换下面的版本号需要的具体版本 -->
-                <version>1.2.5</version> <!-- 请检查最新的稳定版本 -->
+                <version>1.2.5</version>
             </dependency>
 
             <!-- Shiro核心框架 -->
@@ -184,7 +183,6 @@
             </dependency>
 
             <!--Hutool Java工具包-->
-            <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>

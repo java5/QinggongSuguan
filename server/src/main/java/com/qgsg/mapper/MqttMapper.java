@@ -10,4 +10,6 @@ import java.time.LocalDateTime;
 public interface MqttMapper {
     //@Insert("INSERT INTO student(number,sign_status,sign_time) VALUES(#{number}, #{signStatus},#{singTime})")
     void updatemqtt(String number, int signStatus, LocalDateTime signTime);
+
+    void updatesign(String number, int signStatus, LocalDateTime signTime);
 }

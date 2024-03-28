@@ -4,6 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.qgsg.dto.MqttDTO;
 import com.qgsg.service.IOTSensorService;
+import com.qgsg.service.MqttService;
 import com.qgsg.service.impl.MqttServiceImpl;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +48,7 @@ public class MqttInboundConfiguration {
     @Autowired
     private IOTSensorService sensorService;
     @Autowired
-    private MqttServiceImpl mqttServiceimpl;
+    private MqttService mqttService;
 
     @Bean
     public MessageChannel mqttInputChannel() {
@@ -119,7 +120,7 @@ public class MqttInboundConfiguration {
                 String json = lastReceivedMessage;
                 MqttDTO mqtt = JSON.parseObject(json, MqttDTO.class);
                 log.info("接收的：{}",mqtt);
-                mqttServiceimpl.update(mqtt);
+                mqttService.update(mqtt);
             }
 
         };

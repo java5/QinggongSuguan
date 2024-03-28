@@ -10,4 +10,13 @@
         </set>
         where number = #{number}
     </update>
+
+    <update id="updatesign">
+        update sign
+        <set>
+            <if test="signStatus != null">sign_status = #{signStatus},</if>
+            <if test="signTime != null">sign_time = #{signTime},</if>
+        </set>
+        where number = #{number}
+    </update>
 </mapper>
