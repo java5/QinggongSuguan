@@ -72,8 +72,21 @@ public class StudentController {
     @GetMapping("/{number}")
     @ApiOperation("根据学号查询学生信息")
     public Result<Student> getByNubmer(@PathVariable String number){
-        log.info("：{}",number);
+        log.info("{}",number);
         Student student = studentService.getByNumber(String.valueOf(number));
         return Result.success(student);
+    }
+
+    /**
+     * 根据学号开除学生，可批量
+     * @param numbers
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation("开除学生")
+    public Result delete(@RequestBody List<String> numbers){
+        log.info("删除学生");
+        studentService.deleteStudent(numbers);
+        return Result.success();
     }
 }

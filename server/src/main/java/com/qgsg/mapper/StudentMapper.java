@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.qgsg.dto.StudentPageQueryDTO;
 import com.qgsg.entity.Student;
 import com.qgsg.vo.StudentVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -37,4 +38,11 @@ public interface StudentMapper {
      */
     @Select("select * from student where number = #{number}")
     Student getByNumber(String number);
+
+    /**
+     * 根据id删学生
+     * @param number
+     */
+    @Delete("delete from student where number=#{number}")
+    void deleteByNumber(String number);
 }

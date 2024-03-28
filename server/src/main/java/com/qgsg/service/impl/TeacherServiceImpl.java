@@ -46,7 +46,7 @@ public class TeacherServiceImpl implements TeacherService {
         }
 
         //密码比对
-        //password = DigestUtils.md5DigestAsHex(password.getBytes());
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
         if (!password.equals(teacher.getPassword())) {
             //密码错误
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);

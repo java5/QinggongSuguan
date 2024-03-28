@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -22,6 +23,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentMapper studentMapper;
+
 
 
 
@@ -72,5 +74,20 @@ public class StudentServiceImpl implements StudentService {
         Student student=studentMapper.getByNumber(number);
         log.info("{}",student);
         return student;
+    }
+
+    /**
+     * 批量删学生
+     * @param numbers
+     */
+    @Override
+    public void deleteStudent(List<String> numbers) {
+        log.info("number:{}",numbers);
+    for(String number:numbers){
+        log.info(number);
+        studentMapper.deleteByNumber(number);
+    }
+
+
     }
 }

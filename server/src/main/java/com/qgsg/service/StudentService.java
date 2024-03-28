@@ -5,6 +5,8 @@ import com.qgsg.dto.StudentPageQueryDTO;
 import com.qgsg.entity.Student;
 import com.qgsg.result.PageResult;
 
+import java.util.List;
+
 public interface StudentService {
     /**
      * 新增学生
@@ -32,4 +34,10 @@ public interface StudentService {
      * @return
      */
     Student getByNumber(String number);
+
+    /**
+     * 删除学生
+     * @param numbers
+     */
+    void deleteStudent(List<String> numbers);
 }
