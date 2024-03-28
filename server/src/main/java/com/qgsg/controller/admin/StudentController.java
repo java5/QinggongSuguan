@@ -84,7 +84,7 @@ public class StudentController {
      */
     @DeleteMapping("/deletestudent")
     @ApiOperation("开除学生")
-    public Result delete(@RequestBody List<String> numbers){
+    public Result delete(@RequestParam List<String> numbers){
         log.info("删除学生");
         studentService.deleteStudent(numbers);
         return Result.success();

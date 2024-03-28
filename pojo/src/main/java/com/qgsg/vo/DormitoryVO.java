@@ -1,4 +1,4 @@
-package com.qgsg.entity;
+package com.qgsg.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,15 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Dormitory {
-    private int id;
-
+public class DormitoryVO {
+    private Long id;
     private String dormitoryNumber;
-
     private int accommodationCapacity;
-
     private int actualCapacity;
-
     private String buildingNumber;
-
 }

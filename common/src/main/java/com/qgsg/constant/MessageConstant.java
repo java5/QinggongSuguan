@@ -12,4 +12,6 @@ public class MessageConstant {
     public static final String USER_NOT_LOGIN = "用户未登录";
     public static final String CAPACITY_NOT_ADEQUATE = "宿舍容量不足";
 
+    public static final String There_are_students_in_the_current_dormitory_and_cannot_be_deleted= "当前宿舍有学生，不能删除";
+
 }
