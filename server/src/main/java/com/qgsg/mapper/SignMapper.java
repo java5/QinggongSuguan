@@ -5,6 +5,7 @@ import com.qgsg.dto.SignDTO;
 import com.qgsg.entity.Sign;
 import com.qgsg.entity.Student;
 import com.qgsg.vo.SignVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -13,4 +14,6 @@ public interface SignMapper {
     void update(Sign sign);
 
     Page<SignVO> signpage(SignDTO studentPageQueryDTO);
+    @Delete("delete from sign where number=#{number}")
+    void deleteToSign(String number);
 }

@@ -116,6 +116,7 @@ public class StudentServiceImpl implements StudentService {
         for(String number:numbers){
             log.info(number);
             studentMapper.deleteByNumber(number);
+            signMapper.deleteToSign(number);
         }
     }
 }
