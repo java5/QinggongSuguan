@@ -1,4 +1,4 @@
-package com.qgsg.vo;
+package com.qgsg.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,31 +6,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentVO implements Serializable {
+public class Sign implements Serializable {
 
-    private int id;
+    private String id;
 
     private String number;
 
     private String name;
 
-    private String sex;
+    private String signStatus;
 
-    private int age;
-
-    private String phone;
+    private String signTime;
 
     private String dormitoryNumber;
-
-    private String buildingNumber;
-
-    private String fingerPrint;
-
-    private String signStatus;
 
 }
