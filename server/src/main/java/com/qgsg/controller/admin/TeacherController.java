@@ -83,7 +83,7 @@ public class TeacherController {
      * @param teacherDTO
      * @return
      */
-    @PostMapping
+    @PostMapping("/insert")
     @ApiOperation("注册管理员")
     public Result save(@RequestBody TeacherDTO teacherDTO){
         String password=teacherDTO.getPassword();
@@ -99,7 +99,7 @@ public class TeacherController {
      * @param teacherDTO
      * @return
      */
-    @PutMapping("/updateTeacher")
+    @PutMapping("/update")
     @ApiOperation("修改管理员")
     public Result update(@RequestBody TeacherDTO teacherDTO){
         log.info("修改管理员{}",teacherDTO);
@@ -112,7 +112,7 @@ public class TeacherController {
      * @param id
      * @return
      */
-    @DeleteMapping("/deleteteacher/{id}")
+    @DeleteMapping("/delete/{id}")
     @ApiOperation("删除管理员")
     public Result delete(@PathVariable int id){
         log.info("删除管理员");

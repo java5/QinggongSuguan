@@ -28,7 +28,7 @@ public class StudentController {
      * @param studentDTO
      * @return
      */
-    @PostMapping
+    @PostMapping("/inseat")
     @ApiOperation("新增学生")
     public Result save(@RequestBody StudentDTO studentDTO){
         log.info("新增学生：{}",studentDTO);
@@ -42,7 +42,7 @@ public class StudentController {
      * @param studentDTO
      * @return
      */
-    @PutMapping("/updateStudent")
+    @PutMapping("/update")
     @ApiOperation("修改学生")
     public Result update(@RequestBody StudentDTO studentDTO){
         log.info("修改学生{}",studentDTO);
@@ -69,7 +69,7 @@ public class StudentController {
      * @param number
      * @return
      */
-    @GetMapping("/{number}")
+    @GetMapping("/select/{number}")
     @ApiOperation("根据学号查询学生信息")
     public Result<Student> getByNubmer(@PathVariable String number){
         log.info("{}",number);
@@ -82,7 +82,7 @@ public class StudentController {
      * @param numbers
      * @return
      */
-    @DeleteMapping("/deletestudent")
+    @DeleteMapping("/delete")
     @ApiOperation("开除学生")
     public Result delete(@RequestParam List<String> numbers){
         log.info("删除学生");
