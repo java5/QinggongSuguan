@@ -118,9 +118,9 @@ public class MqttInboundConfiguration {
                     System.out.println(lastReceivedMessage);
                 }
                 String json = lastReceivedMessage;
-                MqttDTO mqtt = JSON.parseObject(json, MqttDTO.class);
-                log.info("接收的：{}",mqtt);
-                mqttService.update(mqtt);
+                MqttDTO mqttDTO = JSON.parseObject(json, MqttDTO.class);
+                log.info("接收的：{}",mqttDTO);
+                mqttService.update(mqttDTO);
             }
 
         };
