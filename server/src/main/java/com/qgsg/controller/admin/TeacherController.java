@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -85,6 +86,9 @@ public class TeacherController {
     @PostMapping
     @ApiOperation("注册管理员")
     public Result save(@RequestBody TeacherDTO teacherDTO){
+        String password=teacherDTO.getPassword();
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        teacherDTO.setPassword(password);
         log.info("注册管理员:{}",teacherDTO);
         teacherService.save(teacherDTO);
         return Result.success();
@@ -98,7 +102,7 @@ public class TeacherController {
     @PutMapping("/updateTeacher")
     @ApiOperation("修改管理员")
     public Result update(@RequestBody TeacherDTO teacherDTO){
-        log.info("修改学生{}",teacherDTO);
+        log.info("修改管理员{}",teacherDTO);
         teacherService.updateTeacher(teacherDTO);
         return Result.success();
     }

@@ -46,10 +46,6 @@ public class TeacherServiceImpl implements TeacherService {
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
         }
 
-//        if (teacher.getStatus() == StatusConstant.DISABLE) {
-//            //账号被锁定
-//            throw new AccountLockedException(MessageConstant.ACCOUNT_LOCKED);
-//        }
 
 
         //3、返回实体对象
