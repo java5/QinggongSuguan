@@ -27,7 +27,7 @@ public class DormitoryController {
      * @param dormitoryPageQueryDTO
      * @return
      */
-    @GetMapping("/Page")
+    @GetMapping("/page")
     @ApiOperation("宿舍分页查询")
     public Result<PageResult> page(DormitoryPageQueryDTO dormitoryPageQueryDTO){
         log.info("宿舍分页查询：{}",dormitoryPageQueryDTO);
