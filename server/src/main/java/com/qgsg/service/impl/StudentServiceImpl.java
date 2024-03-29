@@ -6,9 +6,11 @@ import com.qgsg.constant.MessageConstant;
 import com.qgsg.dto.StudentDTO;
 import com.qgsg.dto.StudentPageQueryDTO;
 import com.qgsg.entity.Dormitory;
+import com.qgsg.entity.Sign;
 import com.qgsg.entity.Student;
 import com.qgsg.exception.InsufficientCapacityException;
 import com.qgsg.mapper.DormitoryMapper;
+import com.qgsg.mapper.SignMapper;
 import com.qgsg.mapper.StudentMapper;
 import com.qgsg.result.PageResult;
 import com.qgsg.service.StudentService;
@@ -64,6 +66,8 @@ public class StudentServiceImpl implements StudentService {
 //        studentMapper.insert(student);
 //    }
 
+    @Autowired
+    private SignMapper signMapper;
     /**
      * 修改学生信息
      * @param studentDTO
@@ -71,8 +75,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void updateStudent(StudentDTO studentDTO) {
         Student student= new Student();
+        Sign sign=new Sign();
         BeanUtils.copyProperties(studentDTO,student);
+        BeanUtils.copyProperties(studentDTO,sign);
         studentMapper.update(student);
+        signMapper.update(sign);
     }
 
     /**
