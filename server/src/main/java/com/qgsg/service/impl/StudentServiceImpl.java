@@ -83,7 +83,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
-     * 根据学号查学生
+     * 分页查学生
      * @param studentPageQueryDTO
      */
     @Override

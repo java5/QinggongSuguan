@@ -18,7 +18,7 @@ public class SignServiceImpl implements SignService {
     @Autowired
     private SignMapper signMapper;
     /**
-     *签到表分页查询
+     * 签到表分页查询
      * @param signDTO
      * @return
      */
@@ -27,5 +27,12 @@ public class SignServiceImpl implements SignService {
         PageHelper.startPage(signDTO.getPage(),signDTO.getPageSize());
         Page<SignVO> signVO = signMapper.signpage(signDTO);
         return new PageResult(signVO.getTotal(), signVO.getResult());
+    }
+
+    //根据number查询集合
+    @Override
+    public Page<SignVO> getByNumber(String number) {
+        Page<SignVO> sign = signMapper.getByNumber(number);
+        return sign;
     }
 }

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @ApiModel(description = "签到表返回的数据格式")
 public class SignVO implements Serializable {
 
-    private String id;
+    private int id;
 
     private String number;
 

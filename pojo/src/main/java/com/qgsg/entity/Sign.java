@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Sign implements Serializable {
 
-    private String id;
+    private int id;
 
     private String number;
 
@@ -22,7 +22,7 @@ public class Sign implements Serializable {
 
     private String signStatus;
 
-    private String signTime;
+    private LocalDateTime signTime;
 
     private String dormitoryNumber;
 
