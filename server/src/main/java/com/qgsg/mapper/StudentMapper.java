@@ -4,10 +4,7 @@ import com.github.pagehelper.Page;
 import com.qgsg.dto.StudentPageQueryDTO;
 import com.qgsg.entity.Student;
 import com.qgsg.vo.StudentVO;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -62,6 +59,11 @@ public interface StudentMapper {
             "(#{id},#{number},#{name},#{signStatus},#{signTime},#{dormitoryNumber})")
     void insertsign(Student student);
 
-    @Insert("INSERT INTO student(sign_status) VALUES(#{signStatus})")
+    /**
+     * 每天跟新状态
+     * @param signStatus
+     * @return
+     */
+    @Update("update student set sign_status= #{signStatus}")
     List<Student> getBystatusSign(int signStatus);
 }
