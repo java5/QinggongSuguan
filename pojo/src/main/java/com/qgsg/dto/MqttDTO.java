@@ -14,8 +14,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class MqttDTO implements Serializable {
-
     private String number;//学号
     private int signStatus;//签到状态
+
+    private String name;//姓名
+    private String dormitoryNumber;//宿舍
 
 }

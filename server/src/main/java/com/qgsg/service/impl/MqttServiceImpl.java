@@ -22,12 +22,17 @@ import java.time.LocalDateTime;
         public void update(MqttDTO mqttDTO){
             Mqtt mqtt = new Mqtt();
             BeanUtils.copyProperties(mqttDTO,mqtt);
+            mqtt.setSignTime(LocalDateTime.now());
+
             String number = mqtt.getNumber();
             int signStatus = mqtt.getSignStatus();
-            mqtt.setSignTime(LocalDateTime.now());
             LocalDateTime signTime= mqtt.getSignTime();
-            log.info("mpl:number{},status{},time{}",number,signStatus,signTime);
-            mqttMapper.updatemqtt(number,signStatus,signTime);
-            mqttMapper.updatesign(number,signStatus,signTime);
+//            String name = mqtt.getName();
+//            String dormitory=mqtt.getDormitoryNumber();
+//            mqtt.setId(0);
+//            int id=mqtt.getId();
+//            log.info("mpl:{},number{},status{},time{},{},{}",id,number,signStatus,signTime,name,dormitory);
+            //mqttMapper.updatemqtt(number,signStatus,signTime);
+            mqttMapper.insert(mqtt);
         }
 }
