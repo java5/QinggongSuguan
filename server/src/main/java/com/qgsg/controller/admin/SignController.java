@@ -2,6 +2,7 @@ package com.qgsg.controller.admin;
 
 import com.github.pagehelper.Page;
 import com.qgsg.dto.SignDTO;
+import com.qgsg.dto.StudentDTO;
 import com.qgsg.result.PageResult;
 import com.qgsg.result.Result;
 import com.qgsg.service.SignService;
@@ -10,10 +11,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("admin/sign")
@@ -48,5 +48,26 @@ public class SignController {
         log.info("{}",number);
         Page<SignVO> sign = signService.getByNumber(number);
         return Result.success(sign);
+    }
+
+    /**
+     * 根据学号批量删除签到表
+     * @param numbers
+     * @return
+     */
+    @DeleteMapping("/delete")
+    @ApiOperation("删除签到表")
+    public Result delete(@RequestParam List<String> numbers){
+        log.info("删除签到表");
+        signService.deleteSign(numbers);
+        return Result.success();
+    }
+
+    @PutMapping("/update")
+    @ApiOperation("修改签到表")
+    public Result update(@RequestBody SignDTO signDTO){
+        log.info("修改学生{}",signDTO);
+        signService.updateSign(signDTO);
+        return Result.success();
     }
 }

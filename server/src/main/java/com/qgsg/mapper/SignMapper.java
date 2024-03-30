@@ -20,4 +20,5 @@ public interface SignMapper {
 
     @Select("select * from sign where number = #{number}")
     Page<SignVO> getByNumber(String number);
+
 }

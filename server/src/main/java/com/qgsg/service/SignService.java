@@ -5,6 +5,8 @@ import com.qgsg.dto.SignDTO;
 import com.qgsg.result.PageResult;
 import com.qgsg.vo.SignVO;
 
+import java.util.List;
+
 public interface SignService {
 
     /**
@@ -21,4 +23,8 @@ public interface SignService {
      * @return
      */
     Page<SignVO> getByNumber(String s);
+
+    void deleteSign(List<String> numbers);
+
+    void updateSign(SignDTO signDTO);
 }
