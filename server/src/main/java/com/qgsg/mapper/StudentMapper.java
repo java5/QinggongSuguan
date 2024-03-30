@@ -61,4 +61,7 @@ public interface StudentMapper {
             "values " +
             "(#{id},#{number},#{name},#{signStatus},#{signTime},#{dormitoryNumber})")
     void insertsign(Student student);
+
+    @Insert("INSERT INTO student(sign_status) VALUES(#{signStatus})")
+    List<Student> getBystatusSign(int signStatus);
 }
