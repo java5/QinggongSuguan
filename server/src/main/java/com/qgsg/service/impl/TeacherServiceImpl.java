@@ -6,6 +6,7 @@ import com.qgsg.dto.TeacherLoginDTO;
 import com.qgsg.entity.Teacher;
 import com.qgsg.exception.AccountNotFoundException;
 import com.qgsg.exception.PasswordErrorException;
+import com.qgsg.exception.UsernameExistException;
 import com.qgsg.mapper.TeacherMapper;
 import com.qgsg.service.TeacherService;
 import org.springframework.beans.BeanUtils;
@@ -57,9 +58,14 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     public void save(TeacherDTO teacherDTO) {
-        Teacher teacher= new Teacher();
-        BeanUtils.copyProperties(teacherDTO,teacher);
-        teacherMapper.insert(teacher);
+        Teacher Username = teacherMapper.getByUsername(teacherDTO.getUsername());
+        if(Username!=null){
+            throw new UsernameExistException(MessageConstant.ACCOUNT_FOUND);
+        }else {
+            Teacher teacher= new Teacher();
+            BeanUtils.copyProperties(teacherDTO,teacher);
+            teacherMapper.insert(teacher);
+        }
     }
 
 

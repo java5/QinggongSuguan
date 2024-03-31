@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qgsg.mapper.RepairMapper">
+    <insert id="insert">
+        insert into repair (dormitory_number, building_number,repair_reason,repair_status,repair_time)
+        values (#{dormitoryNumber},#{buildingNumber},#{repairReason},#{repairStatus},#{repairTime})
+    </insert>
+    <update id="update">
+        update repair
+        <set>
+            <if test="dormitoryNumber != null">
+                dormitory_number = #{dormitoryNumber},
+            </if>
+            <if test="buildingNumber != null">
+                building_number = #{buildingNumber},
+            </if>
+            <if test="repairReason != null">
+                repair_reason = #{repairReason},
+            </if>
+            <if test="repairStatus != null">
+                repair_status = #{repairStatus},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="deleteByIds">
+        delete from repair where id in
+        <foreach collection="ids" open="(" close=")" separator=","  item="id">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="selectpage" resultType="com.qgsg.vo.RepairVO">
+        select *  from repair
+        <where>
+            <if test="dormitoryNumber!=null">
+                and dormitory_number=#{dormitoryNumber}
+            </if>
+
+        </where>
+    </select>
+
+
+</mapper>

@@ -64,6 +64,14 @@ public interface StudentMapper {
      * @param signStatus
      * @return
      */
-    @Update("update student set sign_status= #{signStatus}")
+//    @Update("update student set sign_status= #{signStatus}")
+//    List<Student> getBystatusSign(int signStatus);
+
+    /**
+     * 根据学生签到状态查询学生
+     * @param signStatus
+     * @return
+     */
+    @Select("select * from student where sign_status=#{signStatus}")
     List<Student> getBystatusSign(int signStatus);
 }
