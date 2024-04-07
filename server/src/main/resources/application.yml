@@ -41,7 +41,7 @@ qgsg:
 com:
   mqtt:
     url: tcp://broker.emqx.io #tcp://broker.emqx.io #ws://127.0.0.1:8083
-    clientId: mqtt_qgsg
+    clientId: mqtt_qgsg_dev
     receiveTopics: qgsg/#
     sendTopics: qgsg/#
     username: admin

@@ -52,7 +52,7 @@ public class DormitoryController {
      * @return
      */
     @GetMapping("/select/{id}")
-    @ApiOperation("根据宿舍Id查询宿舍用于修改宿舍的页面回显便于修改")
+    @ApiOperation("根据宿舍Id查询宿舍")
     public Result<DormitoryVO> getDormitory(@PathVariable int id){
         log.info("宿舍id:{}",id);
         DormitoryVO dormitoryVO=dormitoryService.getDormitory(id);

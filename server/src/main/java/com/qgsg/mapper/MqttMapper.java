@@ -1,9 +1,6 @@
 package com.qgsg.mapper;
 
 import com.qgsg.entity.Mqtt;
-import com.qgsg.entity.Teacher;
-import lombok.Setter;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDateTime;
@@ -15,4 +12,5 @@ public interface MqttMapper {
 
 
     void insert(Mqtt mqtt);
+
 }

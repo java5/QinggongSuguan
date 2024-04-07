@@ -1,6 +1,5 @@
 package com.qgsg.mapper;
 
-import com.qgsg.entity.Student;
 import com.qgsg.entity.Teacher;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -20,12 +19,14 @@ public interface TeacherMapper {
 
     /**
      * 插入管理员数据
+     *
      * @param teacher
+     * @return
      */
     @Insert("insert into housemaster (name, username, password, phone,authority) " +
             "values " +
             "(#{name},#{username},#{password},#{phone},#{authority})")
-    void insert(Teacher teacher);
+    int insert(Teacher teacher);
 
     /**
      * 更新管理员数据

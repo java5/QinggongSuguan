@@ -86,7 +86,7 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     public void deleteTeacher(int id) {
-    teacherMapper.deleteById(id);
+        teacherMapper.deleteById(id);
     }
 
 }
