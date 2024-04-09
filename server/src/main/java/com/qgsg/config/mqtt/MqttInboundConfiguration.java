@@ -107,40 +107,44 @@ public class MqttInboundConfiguration {
                 String recvTopic = (String) messageHeaders.get(MqttHeaders.RECEIVED_TOPIC);
                 // 检查主题并处理消息
                 assert recvTopic != null;
-                if (recvTopic.startsWith("qgsg")) {
-                    String handMessage = "接收到的消息为"+payload;
-                    lastReceivedMessage= (String) payload;
+                if (recvTopic.startsWith("emqx/esp32")) {
+                    String handMessage = "接收到的消息为" + payload;
+                    lastReceivedMessage = (String) payload;
                     LOGGER.debug(handMessage);
                     System.out.println(lastReceivedMessage);
                 }
                 String json = lastReceivedMessage;
-                log.info("接收的json{}",json);
+                log.info("接收的json{}", json);
 
-                MqttDTO mqttDTO=new MqttDTO();
+                MqttDTO mqttDTO = new MqttDTO();
+
                 JSONObject jsonObject = JSONObject.parseObject(json);
-                log.info("jsonObject对象为:{}",jsonObject);
+                log.info("jsonObject对象为:{}", jsonObject);
 
                 JSONObject dormitory = jsonObject.getJSONObject("dormitory");
+                log.info("dormitory:{}", dormitory);
 
-                String dormitoryNumber = dormitory.getString("dormitoryNumber");
+                if (dormitory != null) {
+                    String dormitoryNumber = dormitory.getString("dormitoryNumber");
 
-                JSONArray studentsArray = dormitory.getJSONArray("students");
-                for (int i = 0; i < studentsArray.size(); i++) {
-                    JSONObject student = studentsArray.getJSONObject(i);
-                    String studentId = student.getString("studentId");
-                    String name = student.getString("name");
-                    boolean checkInStatus = student.getBooleanValue("checkInStatus");
-                    boolean leaveStatus = student.getBooleanValue("leaveStatus");
-                    if(checkInStatus && !leaveStatus) {
-                        log.info("签到成功的添加到签到表");
-                        mqttDTO.setDormitoryNumber(dormitoryNumber);
-                        mqttDTO.setNumber(studentId);
-                        mqttDTO.setName(name);
-                        mqttDTO.setSignStatus(1);
-                        mqttService.update(mqttDTO);
+                    JSONArray studentsArray = dormitory.getJSONArray("students");
+                    for (int i = 0; i < studentsArray.size(); i++) {
+                        JSONObject student = studentsArray.getJSONObject(i);
+                        String studentId = student.getString("studentId");
+                        String name = student.getString("name");
+                        boolean checkInStatus = student.getBooleanValue("checkInStatus");
+                        boolean leaveStatus = student.getBooleanValue("leaveStatus");
+                        if (checkInStatus && !leaveStatus) {
+                            log.info("签到成功的添加到签到表");
+                            mqttDTO.setDormitoryNumber(dormitoryNumber);
+                            mqttDTO.setNumber(studentId);
+                            mqttDTO.setName(name);
+                            mqttDTO.setSignStatus(1);
+                            mqttService.update(mqttDTO);
+                        }
                     }
-                }
 
+                }
             }
 
         };
