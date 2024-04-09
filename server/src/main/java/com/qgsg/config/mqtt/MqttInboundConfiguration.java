@@ -115,21 +115,14 @@ public class MqttInboundConfiguration {
                 }
                 String json = lastReceivedMessage;
                 log.info("接收的json{}",json);
-                //开始解析json数据
-//                MqttDTO mqttDTO = JSON.parseObject(json, MqttDTO.class);
-//                log.info("接收的：{}",mqttDTO);
-
 
                 MqttDTO mqttDTO=new MqttDTO();
-                // 将字符串json转换为JSONObject对象
                 JSONObject jsonObject = JSONObject.parseObject(json);
                 log.info("jsonObject对象为:{}",jsonObject);
 
                 JSONObject dormitory = jsonObject.getJSONObject("dormitory");
-                log.info("解析后的dormitory对象为：{}",dormitory);
 
                 String dormitoryNumber = dormitory.getString("dormitoryNumber");
-                System.out.println("Dormitory Number: " + dormitoryNumber);
 
                 JSONArray studentsArray = dormitory.getJSONArray("students");
                 for (int i = 0; i < studentsArray.size(); i++) {
@@ -138,15 +131,6 @@ public class MqttInboundConfiguration {
                     String name = student.getString("name");
                     boolean checkInStatus = student.getBooleanValue("checkInStatus");
                     boolean leaveStatus = student.getBooleanValue("leaveStatus");
-
-                    System.out.println("接受的--------------------");
-                    System.out.println("公共宿舍号:"+dormitoryNumber);
-                    System.out.println("Student ID: " + studentId);
-                    System.out.println("Name: " + name);
-                    System.out.println("Check-In Status: " + checkInStatus);
-                    System.out.println("Leave Status: " + leaveStatus);
-                    System.out.println("--------------------");
-
                     if(checkInStatus && !leaveStatus) {
                         log.info("签到成功的添加到签到表");
                         mqttDTO.setDormitoryNumber(dormitoryNumber);
