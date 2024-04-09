@@ -65,5 +65,10 @@
             <version>3.5.1</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

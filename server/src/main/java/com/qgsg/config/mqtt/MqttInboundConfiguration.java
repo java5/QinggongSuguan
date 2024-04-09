@@ -1,11 +1,10 @@
 package com.qgsg.config.mqtt;
 
-import cn.hutool.json.JSONUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.qgsg.dto.MqttDTO;
 import com.qgsg.service.IOTSensorService;
 import com.qgsg.service.MqttService;
-import com.qgsg.service.impl.MqttServiceImpl;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -24,10 +23,7 @@ import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannel
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.alibaba.fastjson.JSON;
 
-import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -118,9 +114,49 @@ public class MqttInboundConfiguration {
                     System.out.println(lastReceivedMessage);
                 }
                 String json = lastReceivedMessage;
-                MqttDTO mqttDTO = JSON.parseObject(json, MqttDTO.class);
-                log.info("接收的：{}",mqttDTO);
-                mqttService.update(mqttDTO);
+                log.info("接收的json{}",json);
+                //开始解析json数据
+//                MqttDTO mqttDTO = JSON.parseObject(json, MqttDTO.class);
+//                log.info("接收的：{}",mqttDTO);
+
+
+                MqttDTO mqttDTO=new MqttDTO();
+                // 将字符串json转换为JSONObject对象
+                JSONObject jsonObject = JSONObject.parseObject(json);
+                log.info("jsonObject对象为:{}",jsonObject);
+
+                JSONObject dormitory = jsonObject.getJSONObject("dormitory");
+                log.info("解析后的dormitory对象为：{}",dormitory);
+
+                String dormitoryNumber = dormitory.getString("dormitoryNumber");
+                System.out.println("Dormitory Number: " + dormitoryNumber);
+
+                JSONArray studentsArray = dormitory.getJSONArray("students");
+                for (int i = 0; i < studentsArray.size(); i++) {
+                    JSONObject student = studentsArray.getJSONObject(i);
+                    String studentId = student.getString("studentId");
+                    String name = student.getString("name");
+                    boolean checkInStatus = student.getBooleanValue("checkInStatus");
+                    boolean leaveStatus = student.getBooleanValue("leaveStatus");
+
+                    System.out.println("接受的--------------------");
+                    System.out.println("公共宿舍号:"+dormitoryNumber);
+                    System.out.println("Student ID: " + studentId);
+                    System.out.println("Name: " + name);
+                    System.out.println("Check-In Status: " + checkInStatus);
+                    System.out.println("Leave Status: " + leaveStatus);
+                    System.out.println("--------------------");
+
+                    if(checkInStatus && !leaveStatus) {
+                        log.info("签到成功的添加到签到表");
+                        mqttDTO.setDormitoryNumber(dormitoryNumber);
+                        mqttDTO.setNumber(studentId);
+                        mqttDTO.setName(name);
+                        mqttDTO.setSignStatus(1);
+                        mqttService.update(mqttDTO);
+                    }
+                }
+
             }
 
         };

@@ -13,10 +13,12 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class MqttDTO implements Serializable {
-    private String number;//学号
-    private int signStatus;//签到状态
+    private String number;//学号1
+    private int signStatus;//签到状态3 1true 2feast
 
-    //private String name;//姓名
-    //private String dormitoryNumber;//宿舍
+    private String name;//姓名2
+
+
+    private String dormitoryNumber;//宿舍4
 
 }
