@@ -39,9 +39,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void saveStudent(StudentDTO studentDTO) {
         Student student = new Student();
-        if (student.getFingerPrint() == null) {
-            student.setFingerPrint("默认指纹信息");
-        }
+//        if (student.getFingerPrint() == null) {
+//            student.setFingerPrint("默认指纹信息");
+//        }
         student.setSignTime(LocalDateTime.now());
         student.setSignStatus(0);
         Dormitory dormitory=dormitoryMapper.selectDormitory(studentDTO.getDormitoryNumber());

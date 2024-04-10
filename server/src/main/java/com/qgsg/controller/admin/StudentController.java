@@ -93,6 +93,7 @@ public class StudentController {
     }
 
     @GetMapping("select/dor/{dorNumber}")
+    @ApiOperation("根据宿舍号查询该宿舍学生信息")
     public Result<List<Student>> getByDronumber(@PathVariable String dorNumber){
         log.info("接收的dornumber{}",dorNumber);
         List<Student> student=studentService.getByDornumber(dorNumber);
