@@ -77,6 +77,8 @@ public class StudentController {
         return Result.success(student);
     }
 
+
+
     /**
      * 根据学号开除学生，可批量
      * @param numbers
@@ -88,5 +90,12 @@ public class StudentController {
         log.info("删除学生");
         studentService.deleteStudent(numbers);
         return Result.success();
+    }
+
+    @GetMapping("select/dor/{dorNumber}")
+    public Result<List<Student>> getByDronumber(@PathVariable String dorNumber){
+        log.info("接收的dornumber{}",dorNumber);
+        List<Student> student=studentService.getByDornumber(dorNumber);
+        return Result.success(student);
     }
 }

@@ -2,7 +2,7 @@ package com.qgsg.controller.admin;
 
 import com.github.pagehelper.Page;
 import com.qgsg.dto.SignDTO;
-import com.qgsg.dto.StudentDTO;
+import com.qgsg.entity.Sign;
 import com.qgsg.result.PageResult;
 import com.qgsg.result.Result;
 import com.qgsg.service.SignService;
@@ -69,5 +69,13 @@ public class SignController {
         log.info("修改学生{}",signDTO);
         signService.updateSign(signDTO);
         return Result.success();
+    }
+
+    @GetMapping("select/dor/{dorNumber}")
+    @ApiOperation("根据宿舍号查询签到学生")
+    public Result<List<Sign>> getByDronumber(@PathVariable String dorNumber){
+        log.info("接收的dornumber{}",dorNumber);
+        List<Sign> sign=signService.getByDornumber(dorNumber);
+        return Result.success(sign);
     }
 }

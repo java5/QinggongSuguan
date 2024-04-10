@@ -2,6 +2,7 @@ package com.qgsg.service;
 
 import com.github.pagehelper.Page;
 import com.qgsg.dto.SignDTO;
+import com.qgsg.entity.Sign;
 import com.qgsg.result.PageResult;
 import com.qgsg.vo.SignVO;
 
@@ -27,4 +28,6 @@ public interface SignService {
     void deleteSign(List<String> numbers);
 
     void updateSign(SignDTO signDTO);
+
+    List<Sign> getByDornumber(String dorNumber);
 }

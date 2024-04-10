@@ -4,7 +4,10 @@ import com.github.pagehelper.Page;
 import com.qgsg.dto.StudentPageQueryDTO;
 import com.qgsg.entity.Student;
 import com.qgsg.vo.StudentVO;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -74,4 +77,9 @@ public interface StudentMapper {
      */
     @Select("select * from student where sign_status=#{signStatus}")
     List<Student> getBystatusSign(int signStatus);
+
+    
+
+    @Select("select * from student where dormitory_number=#{dormitoryNumber}")
+    List<Student> getByDornumer(String dormitoryNumber);
 }

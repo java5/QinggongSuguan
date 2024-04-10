@@ -13,7 +13,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -56,5 +55,11 @@ public class SignServiceImpl implements SignService {
         BeanUtils.copyProperties(signDTO,sign);
         log.info(String.valueOf(sign));
         signMapper.update(sign);
+    }
+
+    @Override
+    public List<Sign> getByDornumber(String dorNumber) {
+        List<Sign> sign=signMapper.getByDornumer(dorNumber);
+        return sign;
     }
 }

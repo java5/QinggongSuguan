@@ -40,4 +40,7 @@ public interface StudentService {
      * @param numbers
      */
     void deleteStudent(List<String> numbers);
+
+
+    List<Student> getByDornumber(String dorNumber);
 }

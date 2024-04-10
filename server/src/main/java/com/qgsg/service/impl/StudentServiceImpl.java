@@ -56,15 +56,7 @@ public class StudentServiceImpl implements StudentService {
         }
         studentMapper.insertsign(student);
     }
-//    @Override
-//    public void saveStudent(StudentDTO studentDTO) {
-//        Student student = new Student();
-//        BeanUtils.copyProperties(studentDTO,student);
-//        student.setSignTime(LocalDateTime.now());
-//        student.setSignStatus(0);
-//        log.info("{}",student);
-//        studentMapper.insert(student);
-//    }
+
 
     @Autowired
     private SignMapper signMapper;
@@ -118,5 +110,11 @@ public class StudentServiceImpl implements StudentService {
             studentMapper.deleteByNumber(number);
             signMapper.deleteToSign(number);
         }
+    }
+
+    @Override
+    public List<Student> getByDornumber(String dormitoryNumber) {
+        List<Student> student=studentMapper.getByDornumer(dormitoryNumber);
+        return student;
     }
 }
