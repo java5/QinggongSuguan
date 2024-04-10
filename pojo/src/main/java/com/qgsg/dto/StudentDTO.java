@@ -18,6 +18,4 @@ public class StudentDTO {
 
     private String buildingNumber;
 
-    private String fingerPrint;
-
 }

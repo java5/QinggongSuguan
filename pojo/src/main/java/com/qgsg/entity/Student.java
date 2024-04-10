@@ -1,12 +1,8 @@
 package com.qgsg.entity;
 
-import com.alibaba.druid.stat.TableStat;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 import lombok.*;
 
 import java.time.LocalDateTime;
-
-import static com.alibaba.druid.stat.TableStat.*;
 
 @Data
 @Builder
@@ -29,9 +25,6 @@ public class Student {
     private String dormitoryNumber;
 
     private String buildingNumber;
-
-
-    private String fingerPrint;
 
     private int signStatus;
 

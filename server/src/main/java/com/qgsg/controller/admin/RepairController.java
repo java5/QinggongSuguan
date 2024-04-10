@@ -52,7 +52,7 @@ public class RepairController {
      * @return
      */
     @GetMapping("/select/{id}")
-    @ApiOperation("根据报修id查询报修信息用于修改报修的页面回显便于修改")
+    @ApiOperation("根据报修id查询报修信息")
     public Result<RepairVO> getDormitory(@PathVariable int id){
         log.info("报修id:{}",id);
         RepairVO repairVO=repairService.getDormitory(id);

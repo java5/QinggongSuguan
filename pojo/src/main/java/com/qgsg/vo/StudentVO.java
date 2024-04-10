@@ -29,8 +29,6 @@ public class StudentVO implements Serializable {
 
     private String buildingNumber;
 
-    private String fingerPrint;
-
     private String signStatus;
 
 }
