@@ -86,7 +86,7 @@ public class MqttInboundConfiguration {
 
     /**
      * 创建一个消息处理器，用于处理来自MQTT输入通道的消息。
-     * 这个处理器会检查接收到的消息的主题，如果主题以"qgsg"开头，
+     * 这个处理器会检查接收到的消息的主题，如果主题以"？"开头，
      * 则会处理消息
      *
      * @return MessageHandler 返回一个自定义的消息处理器，用于处理MQTT输入通道中的消息。
@@ -114,7 +114,7 @@ public class MqttInboundConfiguration {
                     System.out.println(lastReceivedMessage);
                 }
                 String json = lastReceivedMessage;
-                log.info("接收的json{}", json);
+                log.info("接收的json为{}", json);
 
                 MqttDTO mqttDTO = new MqttDTO();
 
@@ -140,6 +140,7 @@ public class MqttInboundConfiguration {
                             mqttDTO.setNumber(studentId);
                             mqttDTO.setName(name);
                             mqttDTO.setSignStatus(1);
+                            log.info("宿号{},学号{},姓名{}",dormitoryNumber,studentId,name);
                             mqttService.update(mqttDTO);
                         }
                     }

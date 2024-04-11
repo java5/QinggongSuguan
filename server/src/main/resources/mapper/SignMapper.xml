@@ -25,4 +25,16 @@
         </set>
         where number = #{number}
     </update>
+
+    <select id="sumByMap" resultType="java.lang.Integer">
+        select sum(sign_status) from sign
+        <where>
+            <if test="beginTime != null">
+                and sign_time &gt; #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and sign_time &lt; #{endTime}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -24,4 +25,9 @@ public interface SignMapper {
 
     @Select("select * from sign where dormitory_number =#{dorNumber} ;")
     List<Sign> getByDornumer(String dorNumber);
+
+    Integer sumByMap(LocalDateTime beginTime,LocalDateTime endTime);
+
+    @Select("select * from sign where number = #{number}")
+    List<Sign> getByNum(String number);
 }

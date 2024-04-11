@@ -20,7 +20,7 @@ public class Sign implements Serializable {
 
     private String name;
 
-    private String signStatus;
+    private int signStatus;
 
     private LocalDateTime signTime;
 

@@ -3,7 +3,6 @@ package com.qgsg.dto;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Data
 public class SignDTO implements Serializable {
@@ -16,7 +15,7 @@ public class SignDTO implements Serializable {
 
     private int pageSize;
 
-    private String signStatus;
+    private int signStatus;
 
     private String dormitoryNumber;
 
