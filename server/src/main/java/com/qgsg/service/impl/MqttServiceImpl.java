@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,13 +56,28 @@ import java.util.Objects;
             LocalDate currentDate = LocalDate.now();
             log.info("当前时间{}",currentDate);
 
-            if(Objects.equals(dateOnly, currentDate)) {
-                System.out.println("时间一直");
-            }else {
-                System.out.println("时间不一");;
-                mqttMapper.updatemqtt(number,signStatus,signTime);
-                mqttMapper.insert(mqtt);
+
+
+            LocalDateTime now = LocalDateTime.now();
+
+            // 设置判断范围的起始和结束时间
+            LocalTime startTime = LocalTime.of(20, 0); // 20点0分
+            LocalTime endTime = LocalTime.of(22, 0); // 22点0分
+
+            // 检查当前时间的小时和分钟是否在指定范围内
+            boolean isWithinRange = now.toLocalTime().isAfter(startTime) && now.toLocalTime().isBefore(endTime);
+
+            if (isWithinRange) {
+                if(Objects.equals(dateOnly, currentDate)) {
+                }else {
+                    System.out.println("时间不一");;
+                    mqttMapper.updatemqtt(number,signStatus,signTime);
+                    mqttMapper.insert(mqtt);
+                }
+            } else {
+                System.out.println("不在范围内，禁止签到");
             }
+
 //            String name = student.getName();
 //            String dormitoryNumber = student.getDormitoryNumber();
 //            if (name != null) mqtt.setName(name);
