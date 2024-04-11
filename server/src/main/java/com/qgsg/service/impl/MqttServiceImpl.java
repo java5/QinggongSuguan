@@ -61,8 +61,8 @@ import java.util.Objects;
             LocalDateTime now = LocalDateTime.now();
 
             // 设置判断范围的起始和结束时间
-            LocalTime startTime = LocalTime.of(20, 0); // 20点0分
-            LocalTime endTime = LocalTime.of(22, 0); // 22点0分
+            LocalTime startTime = LocalTime.of(8, 0);
+            LocalTime endTime = LocalTime.of(22, 0);
 
             // 检查当前时间的小时和分钟是否在指定范围内
             boolean isWithinRange = now.toLocalTime().isAfter(startTime) && now.toLocalTime().isBefore(endTime);
@@ -70,7 +70,6 @@ import java.util.Objects;
             if (isWithinRange) {
                 if(Objects.equals(dateOnly, currentDate)) {
                 }else {
-                    System.out.println("时间不一");;
                     mqttMapper.updatemqtt(number,signStatus,signTime);
                     mqttMapper.insert(mqtt);
                 }
