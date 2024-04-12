@@ -30,4 +30,6 @@ public interface SignMapper {
 
     @Select("select * from sign where number = #{number}")
     List<Sign> getByNum(String number);
+
+    List<SignVO> select(LocalDateTime beginTime, LocalDateTime endTime);
 }

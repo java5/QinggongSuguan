@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 
 /**
@@ -37,5 +38,15 @@ public class ReportController {
 
         log.info("签到数据统计：{},{}", begin, end);
         return Result.success(reportService.getSignStatistics(begin, end));
+    }
+
+    /**
+     * 导出签到表
+     * @param response
+     */
+    @GetMapping("/export")
+    @ApiOperation("导出签到表")
+    public void export(HttpServletResponse response){
+        reportService.exportSign(response);
     }
 }

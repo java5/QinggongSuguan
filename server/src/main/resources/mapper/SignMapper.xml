@@ -37,4 +37,16 @@
             </if>
         </where>
     </select>
+
+    <select id="select" resultType="com.qgsg.vo.SignVO">
+        select * from sign
+        <where>
+            <if test="beginTime != null">
+                and sign_time &gt; #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and sign_time &lt; #{endTime}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.qgsg.service;
 
 import com.qgsg.vo.SignReportVO;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 
 
@@ -13,4 +14,11 @@ public interface ReportService {
      * @return
      */
     SignReportVO getSignStatistics(LocalDate begin, LocalDate end);
+
+
+    /**
+     * 导出签到表
+     * @param response
+     */
+    void exportSign(HttpServletResponse response);
 }
