@@ -101,7 +101,7 @@ public class MqttInboundConfiguration {
         return new MessageHandler() {
 
 //            @Autowired
-//            private MqttController mqttController;
+//            private MqttSend mqttSend;
 
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
@@ -134,7 +134,7 @@ public class MqttInboundConfiguration {
                 String todayDate = jsonObject.getString("today_date");
                 System.out.println("接收Date: " + todayDate);
 
-                LocalDate date = null;
+                LocalDate yesterday = null;
                 //开始解析
                 if(todayDate!=null) {
                     DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
@@ -145,13 +145,14 @@ public class MqttInboundConfiguration {
                     MqttDateDTO mqttDateDTO = new MqttDateDTO();
                     mqttDateDTO.setToday_date(localDate);
                     log.info("转换后：{}", localDate);
-                    date = localDate;
+                    // 减去一天
+                    yesterday = localDate.minusDays(1);
+                    log.info("前一天：{}",yesterday);//日期无误
                 }
-
 
                 if (messages!=null || todayDate!=null){
                     System.out.println("不为空执行清理程序");
-//                    mqttController.publish(String.valueOf(date));
+//                    mqttSend.publish(String.valueOf(yesterday));
                 }else {
                     System.out.println("为空不执行");
                 }
