@@ -100,9 +100,6 @@ public class MqttInboundConfiguration {
         final String[] msg = {null};
         return new MessageHandler() {
 
-//            @Autowired
-//            private MqttSend mqttSend;
-
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
                 // 提取消息的负载和头信息
@@ -149,10 +146,11 @@ public class MqttInboundConfiguration {
                     yesterday = localDate.minusDays(1);
                     log.info("前一天：{}",yesterday);//日期无误
                 }
-
-                if (messages!=null || todayDate!=null){
+                MqttSend mqttSend = new MqttSend();
+                String date = String.valueOf(yesterday);
+                if (messages!=null && todayDate!=null){
                     System.out.println("不为空执行清理程序");
-//                    mqttSend.publish(String.valueOf(yesterday));
+                    mqttSend.publish(String.valueOf(date));
                 }else {
                     System.out.println("为空不执行");
                 }
