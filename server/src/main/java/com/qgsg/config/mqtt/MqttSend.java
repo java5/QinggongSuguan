@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 public class MqttSend {
     // 发布消息到MQTT服务器
     public Boolean publish(String payload) {
-        log.info("准备发送");
+        log.info("准备发送：{}",payload);//数据传递无误
         try {
             // 创建一个MqttClient实例
             MqttClient mqttClient = new MqttClient("wss://uaac0158.ala.cn-hangzhou.emqxsl.cn:8084", "mqtt_qgsg_dev1");
