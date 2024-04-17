@@ -2,8 +2,6 @@ package com.qgsg.dto;
 
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -13,7 +11,7 @@ public class MqttDateDTO {
 
     private String message;
 
-    private LocalDate today_date;
+//    private LocalDate today_date;
 
 
 

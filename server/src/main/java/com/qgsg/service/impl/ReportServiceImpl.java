@@ -122,7 +122,7 @@ public class ReportServiceImpl implements ReportService {
 
                 XSSFRow row = sheet.getRow(3);
                 //获得某一行
-                row = sheet.getRow(7+j++);
+                row = sheet.getRow(5+j++);
                 row.getCell(1).setCellValue(id);
                 row.getCell(2).setCellValue(number);
                 row.getCell(3).setCellValue(name);

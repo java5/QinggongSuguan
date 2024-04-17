@@ -10,7 +10,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class MqttSend {
 
     public void publish(String payload) {
-        log.info("payload:{}",payload);
+        log.info("开始执行上传：payload:{}",payload);
         String brokerUrl = "wss://uaac0158.ala.cn-hangzhou.emqxsl.cn:8084";
         String clientId = "mqtt_qgsg_dev1";
         String sendTopic = "emqx/esp32";
@@ -31,7 +31,7 @@ public class MqttSend {
             System.out.println("Message published to topic: " + sendTopic);
 
             // 可选，保持连接并在发布后断开
-            client.disconnect();
+//            client.disconnect();
 
         } catch (MqttException e) {
             e.printStackTrace();

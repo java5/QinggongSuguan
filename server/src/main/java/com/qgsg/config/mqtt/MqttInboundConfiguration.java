@@ -3,7 +3,6 @@ package com.qgsg.config.mqtt;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.qgsg.dto.MqttDTO;
-import com.qgsg.dto.MqttDateDTO;
 import com.qgsg.service.IOTSensorService;
 import com.qgsg.service.MqttService;
 import lombok.Getter;
@@ -26,7 +25,7 @@ import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -154,34 +153,34 @@ public class MqttInboundConfiguration {
                 JSONObject jsonObject = JSONObject.parseObject(json);
                 log.info("jsonObject对象为:{}", jsonObject);
 
-
                 // 解析 message 字段
                 String messages = jsonObject.getString("message");
                 System.out.println("Message: " + messages);
                 // 解析 today_date 字段
-                String todayDate = jsonObject.getString("today_date");
-                System.out.println("接收Date: " + todayDate);
+//                String todayDate = jsonObject.getString("today_date");
+//                System.out.println("接收Date: " + todayDate);
 
-                LocalDate yesterday = null;
+                LocalDate yesterday = LocalDate.now();
                 //开始解析
-                if(todayDate!=null) {
-                    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-                    String inputDateString = todayDate;
-                    LocalDate localDate = LocalDate.parse(inputDateString, inputFormatter);
-                    String outputDateString = localDate.toString();
-                    System.out.println("输出date: " + outputDateString);
-                    MqttDateDTO mqttDateDTO = new MqttDateDTO();
-                    mqttDateDTO.setToday_date(localDate);
-                    log.info("转换后：{}", localDate);
+                if(Objects.equals(messages, "reset_data")) {
+//                    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+                    //String inputDateString = todayDate;
+//                    LocalDate localDate = LocalDate.parse(inputDateString, inputFormatter);
+//                    String outputDateString = localDate.toString();
+//                    System.out.println("输出date: " + outputDateString);
+//                    MqttDateDTO mqttDateDTO = new MqttDateDTO();
+//                    mqttDateDTO.setToday_date(localDate);
+//                    log.info("转换后：{}", localDate);
                     // 减去一天
-                    yesterday = localDate.minusDays(1);
-                    log.info("前一天：{}",yesterday);//日期无误
+//                    yesterday = localDate.minusDays(1);
+                    log.info("当天：{}",yesterday);//日期无误
                 }
                 MqttSend mqttSend = new MqttSend();
                 String date = String.valueOf(yesterday);
-                if (messages!=null && todayDate!=null){
+                log.info("传入的串{}",date);
+                if (messages!=null){
                     System.out.println("不为空执行清理程序");
-                    mqttSend.publish(String.valueOf(date));
+                    mqttSend.publish(date);
                 }else {
                     System.out.println("为空不执行");
                 }

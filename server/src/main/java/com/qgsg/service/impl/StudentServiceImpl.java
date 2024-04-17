@@ -9,6 +9,7 @@ import com.qgsg.entity.Dormitory;
 import com.qgsg.entity.Sign;
 import com.qgsg.entity.Student;
 import com.qgsg.exception.InsufficientCapacityException;
+import com.qgsg.exception.UsernameExistException;
 import com.qgsg.mapper.DormitoryMapper;
 import com.qgsg.mapper.SignMapper;
 import com.qgsg.mapper.StudentMapper;
@@ -105,6 +106,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(List<String> numbers) {
         log.info("number:{}",numbers);
+        if(numbers == null) throw new UsernameExistException(MessageConstant.XUEHAOKONG);
         for(String number:numbers){
             log.info(number);
             studentMapper.deleteByNumber(number);
