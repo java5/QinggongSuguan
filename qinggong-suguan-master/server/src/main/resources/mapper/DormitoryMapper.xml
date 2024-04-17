@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qgsg.mapper.DormitoryMapper">
+    <insert id="insertdormitory">
+        insert into dormitory (dormitory_number, building_number,accommodation_capacity,
+                               actual_capacity,building_id)
+        values (#{dormitoryNumber},#{buildingNumber},#{accommodationCapacity},#{actualCapacity},#{buildingId})
+    </insert>
+    <update id="updateDormitory">
+        update dormitory
+        <set>
+            <if test="dormitoryNumber != null">
+                dormitory_number = #{dormitoryNumber},
+            </if>
+            <if test="accommodationCapacity != null">
+                accommodation_capacity = #{accommodationCapacity},
+            </if>
+            <if test="actualCapacity!= null">
+                actual_capacity = #{actualCapacity},
+            </if>
+            <if test="buildingNumber != null">
+                building_number = #{buildingNumber},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="deleteByIds">
+        delete from dormitory where id =#{id}
+
+    </delete>
+    <select id="selectpage" resultType="com.qgsg.vo.DormitoryVO">
+        select *  from dormitory
+        <where>
+            <if test="dormitoryNumber!=null">
+                and dormitory_number=#{dormitoryNumber}
+            </if>
+            <if test="buildingNumber!=null">
+                and building_number=#{buildingNumber}
+            </if>
+        </where>
+    </select>
+</mapper>

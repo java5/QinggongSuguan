@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/qinggong-suguan-master/common/common.iml" filepath="$PROJECT_DIR$/qinggong-suguan-master/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qinggong-suguan-master/pojo/pojo.iml" filepath="$PROJECT_DIR$/qinggong-suguan-master/pojo/pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qinggong-suguan-master/qinggong-suguan.iml" filepath="$PROJECT_DIR$/qinggong-suguan-master/qinggong-suguan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/qinggong-suguan-master.iml" filepath="$PROJECT_DIR$/.idea/qinggong-suguan-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qinggong-suguan-master/server/server.iml" filepath="$PROJECT_DIR$/qinggong-suguan-master/server/server.iml" />
+    </modules>
+  </component>
+</project>

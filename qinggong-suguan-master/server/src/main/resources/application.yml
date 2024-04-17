@@ -1,0 +1,55 @@
+server:
+  port: 9090
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+    druid:
+      driver-class-name: ${qgsg.datasource.driver-class-name}
+      url: jdbc:mysql://${qgsg.datasource.host}:${qgsg.datasource.port}/${qgsg.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${qgsg.datasource.username}
+      password: ${qgsg.datasource.password}
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.teacher.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com:
+      sky:
+        mapper: debug
+        service: info
+        controller: info
+
+qgsg:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    admin-secret-key: qgsg
+    # 设置jwt过期时间
+    admin-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: token
+
+com:
+  mqtt:
+    url: tcp://broker.emqx.io:1883 #wss://uaac0158.ala.cn-hangzhou.emqxsl.cn:8084 #tcp://broker.emqx.io #ws://127.0.0.1:8083
+    clientId: mqtt_qgsg
+    receiveTopics: emqx/qgxy
+    sendTopics: emqx/qgxy
+    username: qweqwe #emqx
+    password: qweqwe #public
+    timeout: 10
+    keepalive: 20
+  alioss:
+    endpoint: ${sky.alioss.endpoint}
+    access-key-id: ${sky.alioss.access-key-id}
+    access-key-secret: ${sky.alioss.access-key-secret}
+    bucket-name: ${sky.alioss.bucket-name}

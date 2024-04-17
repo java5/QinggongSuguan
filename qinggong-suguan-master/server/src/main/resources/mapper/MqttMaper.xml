@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qgsg.mapper.MqttMapper">
+    <update id="updatemqtt">
+        update student
+        <set>
+            <if test="signStatus != null">sign_status = #{signStatus},</if>
+            <if test="signTime != null">sign_time = #{signTime},</if>
+        </set>
+        where number = #{number}
+    </update>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into sign (id,number, name,sign_status,sign_time,dormitory_number)
+        values (#{id},#{number},#{name},#{signStatus},#{signTime},#{dormitoryNumber})
+    </insert>
+</mapper>
