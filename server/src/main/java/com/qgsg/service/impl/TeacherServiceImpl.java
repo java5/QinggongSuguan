@@ -1,18 +1,24 @@
 package com.qgsg.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.qgsg.constant.MessageConstant;
 import com.qgsg.dto.TeacherDTO;
 import com.qgsg.dto.TeacherLoginDTO;
+import com.qgsg.dto.TeacherPageQueryDTO;
 import com.qgsg.entity.Teacher;
 import com.qgsg.exception.AccountNotFoundException;
 import com.qgsg.exception.PasswordErrorException;
 import com.qgsg.exception.UsernameExistException;
 import com.qgsg.mapper.TeacherMapper;
+import com.qgsg.result.PageResult;
 import com.qgsg.service.TeacherService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import java.util.List;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -89,4 +95,17 @@ public class TeacherServiceImpl implements TeacherService {
         teacherMapper.deleteById(id);
     }
 
+    /**
+     * 分页
+     * @param teacherPageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult page(TeacherPageQueryDTO teacherPageQueryDTO) {
+        PageHelper.startPage(teacherPageQueryDTO.getPage(), teacherPageQueryDTO.getPageSize());
+        Page<Teacher> page = teacherMapper.page(teacherPageQueryDTO);
+        long total = page.getTotal();
+        List<Teacher> records = page.getResult();
+        return new PageResult(total, records);
+    }
 }

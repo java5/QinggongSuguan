@@ -1,5 +1,7 @@
 package com.qgsg.mapper;
 
+import com.github.pagehelper.Page;
+import com.qgsg.dto.TeacherPageQueryDTO;
 import com.qgsg.entity.Teacher;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -41,4 +43,7 @@ public interface TeacherMapper {
      */
     @Delete("delete from housemaster where id=#{id}")
     void deleteById(int id);
+
+    //分页
+    Page<Teacher> page(TeacherPageQueryDTO teacherPageQueryDTO);
 }

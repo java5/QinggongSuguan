@@ -1,9 +1,10 @@
 package com.qgsg.service;
 
-import com.qgsg.dto.StudentDTO;
 import com.qgsg.dto.TeacherDTO;
 import com.qgsg.dto.TeacherLoginDTO;
+import com.qgsg.dto.TeacherPageQueryDTO;
 import com.qgsg.entity.Teacher;
+import com.qgsg.result.PageResult;
 
 public interface TeacherService {
 
@@ -32,4 +33,11 @@ public interface TeacherService {
      * @param id
      */
     void deleteTeacher(int id);
+
+    /**
+     * fenye
+     * @param teacherPageQueryDTO
+     * @return
+     */
+    PageResult page(TeacherPageQueryDTO teacherPageQueryDTO);
 }

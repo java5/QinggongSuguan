@@ -28,6 +28,7 @@ public class OrderTask {
     @Scheduled(cron = "0 0 1 * * ? ")//每天凌晨一点触发
     public void processTimeOutOrder(){
 
+        //向硬件发时间，同步复位签到状态
         MqttSend mqttSend = new MqttSend();
         LocalDate date=LocalDate.now();
         mqttSend.publish(String.valueOf(date));

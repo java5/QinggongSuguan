@@ -1,12 +1,12 @@
 package com.qgsg.controller.admin;
 
-import com.qgsg.config.mqtt.MqttInboundConfiguration;
 import com.qgsg.constant.JwtClaimsConstant;
-import com.qgsg.dto.StudentDTO;
 import com.qgsg.dto.TeacherDTO;
 import com.qgsg.dto.TeacherLoginDTO;
+import com.qgsg.dto.TeacherPageQueryDTO;
 import com.qgsg.entity.Teacher;
 import com.qgsg.properties.JwtProperties;
+import com.qgsg.result.PageResult;
 import com.qgsg.result.Result;
 import com.qgsg.service.TeacherService;
 import com.qgsg.utils.JwtUtil;
@@ -14,9 +14,7 @@ import com.qgsg.vo.TeacherLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -78,21 +76,21 @@ public class TeacherController {
     }
 
 
-    /**
-     * 新增管理员
-     * @param teacherDTO
-     * @return
-     */
-    @PostMapping("/insert")
-    @ApiOperation("注册管理员")
-    public Result save(@RequestBody TeacherDTO teacherDTO){
-        String password=teacherDTO.getPassword();
-        password = DigestUtils.md5DigestAsHex(password.getBytes());
-        teacherDTO.setPassword(password);
-        log.info("注册管理员:{}",teacherDTO);
-        teacherService.save(teacherDTO);
-        return Result.success();
-    }
+//    /**
+//     * 新增管理员
+//     * @param teacherDTO
+//     * @return
+//     */
+//    @PostMapping("/insert")
+//    @ApiOperation("注册管理员")
+//    public Result save(@RequestBody TeacherDTO teacherDTO){
+//        String password=teacherDTO.getPassword();
+//        password = DigestUtils.md5DigestAsHex(password.getBytes());
+//        teacherDTO.setPassword(password);
+//        log.info("注册管理员:{}",teacherDTO);
+//        teacherService.save(teacherDTO);
+//        return Result.success();
+//    }
 
     /**
      * 修改管理员
@@ -118,5 +116,18 @@ public class TeacherController {
         log.info("删除管理员");
         teacherService.deleteTeacher(id);
         return Result.success();
+    }
+
+    /**
+     * 管理员分页查询
+     * @param teacherPageQueryDTO
+     * @return
+     */
+    @GetMapping("/page")
+    @ApiOperation("管理员分页查询")
+    public Result<PageResult> page(TeacherPageQueryDTO teacherPageQueryDTO){
+        log.info("分页查询：{}",teacherPageQueryDTO);
+        PageResult pageResult=teacherService.page(teacherPageQueryDTO);
+        return Result.success(pageResult);
     }
 }
