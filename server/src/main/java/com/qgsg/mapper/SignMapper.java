@@ -32,4 +32,20 @@ public interface SignMapper {
     List<Sign> getByNum(String number);
 
     List<SignVO> select(LocalDateTime beginTime, LocalDateTime endTime);
+
+    /**
+     * 查询所有签到信息
+     * @return
+     */
+    @Select("select * from sign")
+    List<Sign> selectAll();
+
+    /**
+     * 查询今日的签到/未签人数
+     * @param begin
+     * @param end
+     * @param signStatus
+     * @return
+     */
+    Integer selectToday(LocalDateTime begin, LocalDateTime end,Object signStatus);
 }

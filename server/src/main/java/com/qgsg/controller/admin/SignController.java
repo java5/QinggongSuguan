@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -77,5 +79,17 @@ public class SignController {
         log.info("接收的dornumber{}",dorNumber);
         List<Sign> sign=signService.getByDornumber(dorNumber);
         return Result.success(sign);
+    }
+
+    /**
+     * 导出excel签到数据表
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @GetMapping("/export")
+    public Result export(HttpServletResponse response) throws IOException {
+        signService.getexprot( response);
+        return Result.success();
     }
 }

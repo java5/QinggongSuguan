@@ -41,7 +41,7 @@ qgsg:
 com:
   mqtt:
     url: wss://uaac0158.ala.cn-hangzhou.emqxsl.cn:8084 #tcp://broker.emqx.io #ws://127.0.0.1:8083 #wss://uaac0158.ala.cn-hangzhou.emqxsl.cn:8084
-    clientId: mqtt_qgsg_dev
+    clientId: mqtt_qgsg_devj
     receiveTopics: emqx/esp32
     sendTopics: emqx/esp32
     username: emqx

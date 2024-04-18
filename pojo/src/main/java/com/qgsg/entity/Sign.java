@@ -26,4 +26,7 @@ public class Sign implements Serializable {
 
     private String dormitoryNumber;
 
+    private int reason;
+
+    private String SpecificReason;
 }
