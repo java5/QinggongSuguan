@@ -41,7 +41,7 @@ import java.util.Objects;
 
 //            Student student=studentMapper.getByNumber(number);
             List<Sign> sign = signMapper.getByNum(number);
-            log.info("学生签到表信息{}",sign);
+            //log.info("学生签到表信息{}",sign);
 
             int i=1;
             LocalDateTime date = null;

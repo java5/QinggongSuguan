@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qgsg.mapper.FangkeMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into fangke (id, name, sex, phone, dizhi, beizhu)
+        values (#{id},#{name},#{sex},#{phone},#{dizhi},#{beizhu})
+    </insert>
+
+
+    <update id="update">
+        update fangke
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="dizhi != null">dizhi = #{dizhi},</if>
+            <if test="beizhu != null">beizhu = #{beizhu},</if>
+        </set>
+        where name = #{name}
+    </update>
+
+    <select id="pageQuery" resultType="com.qgsg.entity.Fangke">
+        select *  from fangke
+        <where>
+            <if test="name!=null">
+                and d.name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

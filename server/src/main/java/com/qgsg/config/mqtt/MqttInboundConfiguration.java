@@ -109,7 +109,7 @@ public class MqttInboundConfiguration {
                 String recvTopic = (String) messageHeaders.get(MqttHeaders.RECEIVED_TOPIC);
                 // 检查主题并处理消息
                 assert recvTopic != null;
-                if (recvTopic.startsWith("emqx/esp32")) {
+                if (recvTopic.startsWith("chat/room/8101")) {
                     String handMessage = (String) payload;//接收的
                     lastReceivedMessage = (String) payload;
                     LOGGER.debug(handMessage);

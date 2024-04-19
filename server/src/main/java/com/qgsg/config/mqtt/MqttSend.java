@@ -13,7 +13,7 @@ public class MqttSend {
         log.info("开始执行上传：payload:{}",payload);
         String brokerUrl = "wss://uaac0158.ala.cn-hangzhou.emqxsl.cn:8084";
         String clientId = "mqtt_qgsg_devj";
-        String sendTopic = "emqx/esp32";
+        String sendTopic = "chat/room/8101";
 
         try {
             MqttClient client = new MqttClient(brokerUrl, clientId);

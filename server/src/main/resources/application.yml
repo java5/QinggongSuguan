@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9090
 
 spring:
   profiles:
@@ -42,8 +42,8 @@ com:
   mqtt:
     url: wss://uaac0158.ala.cn-hangzhou.emqxsl.cn:8084 #tcp://broker.emqx.io #ws://127.0.0.1:8083 #wss://uaac0158.ala.cn-hangzhou.emqxsl.cn:8084
     clientId: mqtt_qgsg_devj
-    receiveTopics: emqx/esp32
-    sendTopics: emqx/esp32
+    receiveTopics: chat/room/8101
+    sendTopics: chat/room/8101
     username: emqx
     password: public
     timeout: 10
