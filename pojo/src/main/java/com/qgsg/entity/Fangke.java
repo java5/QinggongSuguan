@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Fangke implements Serializable {
+
+    private int id;
     private String name;
 
     private String sex;

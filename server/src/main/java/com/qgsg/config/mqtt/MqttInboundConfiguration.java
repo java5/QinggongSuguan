@@ -24,8 +24,6 @@ import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.*;
 
-import java.time.LocalDate;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -123,24 +121,24 @@ public class MqttInboundConfiguration {
                 log.info("jsonObject对象为:{}", jsonObject);
 
                 // 解析 message 字段
-                String messages = jsonObject.getString("message");
-                System.out.println("Message: " + messages);
-                LocalDate yesterday = LocalDate.now();
+//                String messages = jsonObject.getString("message");
+//                System.out.println("Message: " + messages);
+//                LocalDate yesterday = LocalDate.now();
                 //开始解析
-                if(Objects.equals(messages, "reset_data")) {
-                    log.info("当天：{}",yesterday);//日期无误
-                }
-                MqttSend mqttSend = new MqttSend();
-                String date = String.valueOf(yesterday);
-                log.info("传入的串{}",date);
-                if (messages!=null){
-                    System.out.println("不为空执行清理程序");
-                    mqttSend.publish(date);
-                }else {
-                    System.out.println("为空不执行");
-                }
+//                if(Objects.equals(messages, "reset_data")) {
+//                    log.info("当天：{}",yesterday);//日期无误
+//                }
+//                MqttSend mqttSend = new MqttSend();
+//                String date = String.valueOf(yesterday);
+//                log.info("传入的串{}",date);
+//                if (messages!=null){
+//                    System.out.println("不为空执行清理程序");
+//                    mqttSend.publish(date);
+//                }else {
+//                    System.out.println("为空不执行");
+//                }
 
-
+//                接收学生签到表
                 JSONObject dormitory = jsonObject.getJSONObject("dormitory");
                 log.info("dormitory:{}", dormitory);
 
