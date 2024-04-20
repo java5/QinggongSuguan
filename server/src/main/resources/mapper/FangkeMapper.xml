@@ -4,8 +4,8 @@
 <mapper namespace="com.qgsg.mapper.FangkeMapper">
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into fangke (id, name, sex, phone, dizhi, beizhu)
-        values (#{id},#{name},#{sex},#{phone},#{dizhi},#{beizhu})
+        insert into fangke (id, name, sex, phone, dizhi, beizhu,localdatetime)
+        values (#{id},#{name},#{sex},#{phone},#{dizhi},#{beizhu},#{localdatetime})
     </insert>
 
 

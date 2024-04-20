@@ -12,7 +12,7 @@ public class MqttSend {
     public void publish(String payload) {
         log.info("开始执行上传：payload:{}",payload);
         String brokerUrl = "wss://uaac0158.ala.cn-hangzhou.emqxsl.cn:8084";
-        String clientId = "mqtt_qgsg_devj";
+        String clientId = "mqtt_qgsg_dev6";
         String sendTopic = "chat/room/8101";
 
         try {

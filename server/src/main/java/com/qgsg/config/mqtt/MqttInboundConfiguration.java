@@ -163,6 +163,8 @@ public class MqttInboundConfiguration {
                         }
                     }
 
+                }else {
+                    log.info("宿舍为空！！！");
                 }
             }
 

@@ -25,6 +25,6 @@ public class Fangke implements Serializable {
 
     private String beizhu;
 
-    private LocalDateTime localDateTime;
+    private LocalDateTime localdatetime;
 
 }

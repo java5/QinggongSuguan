@@ -29,7 +29,7 @@ public class FangkeServiceImpl implements FangkeService {
     public void saveFangke(FangkeDTO fangkeDTO) {
         Fangke fangke = new Fangke();
         BeanUtils.copyProperties(fangkeDTO,fangke);
-        fangke.setLocalDateTime(LocalDateTime.now());
+        fangke.setLocaldatetime(LocalDateTime.now());
         fangkeMapper.insert(fangke);
     }
     /**
