@@ -31,6 +31,7 @@ public class SignController {
      * @return
      */
     @GetMapping("/select")
+//    @GetMapping("/page")
     @ApiOperation("签到表分页查询")
     public Result<PageResult> page(SignDTO signDTO){
         log.info("签到表分页查询：{}",signDTO);

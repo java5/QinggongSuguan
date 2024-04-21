@@ -29,6 +29,7 @@ public class StudentController {
      * @return
      */
     @PostMapping("/inseat")
+//    @PostMapping("/insert")
     @ApiOperation("新增学生")
     public Result save(@RequestBody StudentDTO studentDTO){
         log.info("新增学生：{}",studentDTO);

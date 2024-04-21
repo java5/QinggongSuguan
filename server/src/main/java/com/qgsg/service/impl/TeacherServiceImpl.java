@@ -16,7 +16,6 @@ import com.qgsg.service.TeacherService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class TeacherServiceImpl implements TeacherService {
         }
 
         //密码比对
-        password = DigestUtils.md5DigestAsHex(password.getBytes());
+//        password = DigestUtils.md5DigestAsHex(password.getBytes());
         if (!password.equals(teacher.getPassword())) {
             //密码错误
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);

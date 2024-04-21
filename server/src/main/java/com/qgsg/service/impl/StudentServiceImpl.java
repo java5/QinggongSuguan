@@ -40,12 +40,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void saveStudent(StudentDTO studentDTO) {
         Student student = new Student();
-//        if (student.getFingerPrint() == null) {
-//            student.setFingerPrint("默认指纹信息");
-//        }
         student.setSignTime(LocalDateTime.now());
         student.setSignStatus(0);
         Dormitory dormitory=dormitoryMapper.selectDormitory(studentDTO.getDormitoryNumber());
+        log.info("dormitory:{}",dormitory);
+        if(dormitory == null)
+            throw new InsufficientCapacityException(MessageConstant.CAPACITY_NOT_ADEQUATE);
         if(dormitory.getActualCapacity()>=dormitory.getAccommodationCapacity())
         {
             throw new InsufficientCapacityException(MessageConstant.CAPACITY_NOT_ADEQUATE);

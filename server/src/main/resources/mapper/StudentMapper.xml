@@ -4,8 +4,8 @@
 <mapper namespace="com.qgsg.mapper.StudentMapper">
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into student (id,number, name, sex, age, phone, finger_print, dormitory_number, building_number,sign_status,sign_time)
-        values (#{id},#{number},#{name},#{sex},#{age},#{phone},#{fingerPrint},#{dormitoryNumber},#{buildingNumber},#{signStatus},#{signTime})
+        insert into student (id,number, name, sex, age, phone, dormitory_number, building_number,sign_status,sign_time)
+        values (#{id},#{number},#{name},#{sex},#{age},#{phone},#{dormitoryNumber},#{buildingNumber},#{signStatus},#{signTime})
     </insert>
 
 
