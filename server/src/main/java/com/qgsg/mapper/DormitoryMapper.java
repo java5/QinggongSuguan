@@ -44,6 +44,9 @@ public interface DormitoryMapper {
     @Select("select * from dormitory where id=#{id}")
     Dormitory selectDormitoryMessage(int id);
 
+    @Select("select * from dormitory where dormitory_number=#{number}")
+    Dormitory getByNumber(String number);
+
     /**
      * 修改宿舍
      * @param dormitory

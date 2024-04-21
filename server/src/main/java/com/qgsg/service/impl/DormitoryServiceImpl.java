@@ -72,18 +72,28 @@ public class DormitoryServiceImpl implements DormitoryService {
     @Override
     public void update(DormitoryDTO dormitoryDTO) {
         Dormitory dormitory=new Dormitory();
+        log.info("dormitory:{}",dormitory);
         BeanUtils.copyProperties(dormitoryDTO,dormitory);
         //根据宿舍id查询修改前的宿舍信息
-        Dormitory dormitory1=dormitoryMapper.selectDormitoryMessage(dormitory.getId());
+//        Dormitory dormitory1=dormitoryMapper.selectDormitoryMessage(dormitory.getId());
+        log.info("dormitory1的number为{}",dormitory.getDormitoryNumber());
+        Dormitory dormitory1=dormitoryMapper.getByNumber(dormitory.getDormitoryNumber());
+        log.info("dormitory1:{}",dormitory1);//查询结果为空
         //修改宿舍
         dormitoryMapper.updateDormitory(dormitory);
         //查询所有学生信息用于某些学生关联了所修改的宿舍也进行修改新的宿舍号
         List<Student> studentList=studentMapper.selectAll();
         for (Student d: studentList) {
+            if(dormitory != null && dormitory1 != null) {
+
             //使用这些学生的宿舍号和修改前的宿舍号进行对比
             if(d.getDormitoryNumber().equals(dormitory1.getDormitoryNumber())){
                 //匹配成功对该学生修改新的宿舍号
                 studentMapper.updateDormitoryNumber(dormitory.getDormitoryNumber());
+            }
+            }
+            else {
+                log.info("宿舍为空");
             }
         }
     }

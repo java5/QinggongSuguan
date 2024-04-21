@@ -18,7 +18,6 @@
             <if test="phone != null">phone = #{phone},</if>
             <if test="dormitoryNumber != null">dormitory_number = #{dormitoryNumber},</if>
             <if test="buildingNumber != null">building_number = #{buildingNumber},</if>
-            <if test="fingerPrint != null">finger_print = #{fingerPrint},</if>
             <if test="signStatus != null">sign_status = #{signStatus},</if>
         </set>
         where number = #{number}
