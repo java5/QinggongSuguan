@@ -143,22 +143,23 @@ public class MqttInboundConfiguration {
                 log.info("dormitory:{}", dormitory);
 
                 if (dormitory != null) {
+                    log.info("宿舍为{}",dormitory);
                     String dormitoryNumber = dormitory.getString("dormitoryNumber");
-
+                    log.info("宿舍号{}",dormitoryNumber);
                     JSONArray studentsArray = dormitory.getJSONArray("students");
                     for (int i = 0; i < studentsArray.size(); i++) {
                         JSONObject student = studentsArray.getJSONObject(i);
                         String studentId = student.getString("studentId");
                         String name = student.getString("name");
                         boolean checkInStatus = student.getBooleanValue("checkInStatus");
-                        boolean leaveStatus = student.getBooleanValue("leaveStatus");
-                        if (checkInStatus && !leaveStatus) {
+//                        boolean leaveStatus = student.getBooleanValue("leaveStatus");
+                        if (checkInStatus /*&& !leaveStatus*/) {
                             log.info("签到成功的添加到签到表");
                             mqttDTO.setDormitoryNumber(dormitoryNumber);
                             mqttDTO.setNumber(studentId);
                             mqttDTO.setName(name);
                             mqttDTO.setSignStatus(1);
-                            log.info("宿号{},学号{},姓名{}",dormitoryNumber,studentId,name);
+                            log.info("准备添加的：宿号{},学号{},姓名{}",dormitoryNumber,studentId,name);
                             mqttService.update(mqttDTO);
                         }
                     }
