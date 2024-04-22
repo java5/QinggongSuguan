@@ -80,10 +80,24 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     public void updateTeacher(TeacherDTO teacherDTO) {
-        Teacher teacher= new Teacher();
-        BeanUtils.copyProperties(teacherDTO,teacher);
-        teacherMapper.update(teacher);
+        Teacher teacher1 = teacherMapper.selectById(teacherDTO.getId());
+        if(!teacher1.getUsername().equals(teacherDTO.getUsername())){
+            Teacher Username = teacherMapper.getByUsername(teacherDTO.getUsername());
+            if(Username!=null){
+                throw new UsernameExistException(MessageConstant.ACCOUNT_FOUND);
+            }
+        } else {
+            Teacher teacher = new Teacher();
+            BeanUtils.copyProperties(teacherDTO, teacher);
+            teacherMapper.update(teacher);
+        }
     }
+//    @Override
+//    public void updateTeacher(TeacherDTO teacherDTO) {
+//        Teacher teacher= new Teacher();
+//        BeanUtils.copyProperties(teacherDTO,teacher);
+//        teacherMapper.update(teacher);
+//    }
 
     /**
      * 删除管理员

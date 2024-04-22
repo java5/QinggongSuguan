@@ -45,4 +45,10 @@ public interface RepairMapper {
      * @param ids
      */
     void deleteByIds(List<Long> ids);
+
+    /**
+     * 首页顶部：报修统计
+     */
+    @Select("select count(id) from repair")
+    int selectRepairNum();
 }

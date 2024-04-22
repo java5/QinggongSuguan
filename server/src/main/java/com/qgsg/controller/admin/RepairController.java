@@ -94,4 +94,13 @@ public class RepairController {
         repairService.deleteBatch(ids);
         return Result.success();
     }
+
+    /**
+     * 首页顶部：报修统计
+     */
+    @GetMapping("/RepairNum")
+    public Result<Integer> RepairNum() {
+        int num = repairService.showRepairNum();
+        return Result.success(num);
+    }
 }

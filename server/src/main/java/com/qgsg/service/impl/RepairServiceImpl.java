@@ -92,4 +92,13 @@ public class RepairServiceImpl implements RepairService {
                 .build();
         repairMapper.update(repair);
     }
+
+    /**
+     * 首页顶部：报修统计
+     */
+    @Override
+    public int showRepairNum() {
+        int repairNum=repairMapper.selectRepairNum();
+        return repairNum;
+    }
 }
