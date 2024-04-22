@@ -16,4 +16,7 @@ public class MessageConstant {
 
     public static final String There_are_students_in_the_current_dormitory_and_cannot_be_deleted= "当前宿舍有学生，不能删除";
 
+    public static final String There_are_dor_in_the_current_building_and_cannot_be_deleted= "当前楼关联了宿舍，删除失败";
+    public static final String NOT_EXIST="当前宿舍楼号不存在，请重新输入！";
+
 }

@@ -2,6 +2,7 @@ package com.qgsg.service;
 
 import com.github.pagehelper.Page;
 import com.qgsg.dto.SignDTO;
+import com.qgsg.dto.SignPageQueryDTO;
 import com.qgsg.entity.Sign;
 import com.qgsg.result.PageResult;
 import com.qgsg.vo.SignVO;
@@ -17,7 +18,7 @@ public interface SignService {
      * @param signDTO
      * @return
      */
-    PageResult page(SignDTO signDTO);
+    PageResult page1(SignDTO signDTO);
 
 
     /**
@@ -27,7 +28,7 @@ public interface SignService {
      */
     Page<SignVO> getByNumber(String s);
 
-    void deleteSign(List<String> numbers);
+    void deleteSign1(List<String> numbers);
 
     void updateSign(SignDTO signDTO);
 
@@ -40,4 +41,20 @@ public interface SignService {
      * @throws IOException
      */
     void getexprot(HttpServletResponse response) throws IOException;
+
+
+
+    /**
+     * 签到表分页查询
+     * @param signPageQueryDTO
+     * @return
+     */
+    PageResult page(SignPageQueryDTO signPageQueryDTO);
+    /**
+     * 根据id删除签到表
+     * @param id
+     * @return
+     */
+    void deleteSign(int id);
+
 }

@@ -39,4 +39,20 @@ public interface DormitoryService {
      * @param ids
      */
     void deleteBatch(List<Long> ids);
+
+
+    /**
+     * 首页Echarts 查询所有宿舍号用于条形图的x轴显示
+     */
+    List<String> getDormitoryNumber();
+
+    /**
+     * 主页：住宿人数
+     * @return
+     */
+    Long selectHaveRoomStudentNum();
+    /**
+     * 首页顶部：空宿舍统计
+     */
+    int emptydormitory();
 }

@@ -43,4 +43,16 @@ public interface StudentService {
 
 
     List<Student> getByDornumber(String dorNumber);
+
+
+    /**
+     * 主页顶部：学生统计
+     */
+    int studentNum();
+
+    /**
+     * 获取所有学生信息
+     * @return
+     */
+    List<Student> getStudtentAll();
 }

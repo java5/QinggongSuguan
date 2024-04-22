@@ -110,7 +110,7 @@ public class StudentServiceImpl implements StudentService {
         for(String number:numbers){
             log.info(number);
             studentMapper.deleteByNumber(number);
-            signMapper.deleteToSign(number);
+            signMapper.deleteToSign1(number);
         }
     }
 
@@ -118,5 +118,23 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> getByDornumber(String dormitoryNumber) {
         List<Student> student=studentMapper.getByDornumer(dormitoryNumber);
         return student;
+    }
+
+
+    /**
+     * 主页顶部：学生统计
+     */
+    @Override
+    public int studentNum() {
+        int studentNum=studentMapper.selectAllNum();
+        return studentNum;
+    }
+    /**
+     * 获取所有学生信息
+     * @return
+     */
+    @Override
+    public List<Student> getStudtentAll() {
+        return studentMapper.findAll();
     }
 }

@@ -46,4 +46,11 @@ public interface TeacherMapper {
 
     //分页
     Page<Teacher> page(TeacherPageQueryDTO teacherPageQueryDTO);
+
+    /**
+     * 获取个人信息
+     * @return
+     */
+    @Select("select * from housemaster where id = #{id}")
+    Teacher selectById(Long id);
 }

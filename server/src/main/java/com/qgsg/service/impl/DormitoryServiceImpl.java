@@ -5,9 +5,13 @@ import com.github.pagehelper.PageHelper;
 import com.qgsg.constant.MessageConstant;
 import com.qgsg.dto.DormitoryDTO;
 import com.qgsg.dto.DormitoryPageQueryDTO;
+import com.qgsg.entity.Building;
 import com.qgsg.entity.Dormitory;
 import com.qgsg.entity.Student;
+import com.qgsg.exception.AccountNotFoundException;
 import com.qgsg.exception.DeletionNotAllowedException;
+import com.qgsg.exception.InsufficientCapacityException;
+import com.qgsg.mapper.BuildingMapper;
 import com.qgsg.mapper.DormitoryMapper;
 import com.qgsg.mapper.StudentMapper;
 import com.qgsg.result.PageResult;
@@ -27,6 +31,8 @@ public class DormitoryServiceImpl implements DormitoryService {
     private DormitoryMapper dormitoryMapper;
     @Autowired
     private StudentMapper studentMapper;
+    @Autowired
+    private BuildingMapper buildingMapper;
 
     /**
      * 宿舍分页查询
@@ -46,11 +52,40 @@ public class DormitoryServiceImpl implements DormitoryService {
      */
     @Override
     public void saveDormitory(DormitoryDTO dormitoryDTO) {
+        Building building= buildingMapper.select(dormitoryDTO.getBuildingNumber());
+        //新增宿舍时判断宿舍楼是否存在
+        if (building==null){
+            throw new AccountNotFoundException(MessageConstant.NOT_EXIST);
+        }
+        //宿舍号重复错误
+        Dormitory dormitory = dormitoryMapper.selectDormitory(dormitoryDTO.getDormitoryNumber());
+        if(dormitory!=null){
+            throw new InsufficientCapacityException("当前宿舍已存在！");
+        }
+        char dorNum0=dormitoryDTO.getDormitoryNumber().charAt(0);
+        char buildingNumber = dormitoryDTO.getBuildingNumber().charAt(0);
+        if(buildingNumber!=dorNum0){
+            throw new InsufficientCapacityException("宿舍号与楼号不匹配,请重新输入！");
+        }
+        if(dormitoryDTO.getActualCapacity()>dormitoryDTO.getAccommodationCapacity()){
+            throw new InsufficientCapacityException("已住人数不能多于可住人数");
+        }
+        dormitoryDTO.setBuildingId(building.getId());
+        Object ActualCapacity=dormitoryDTO.getActualCapacity();
         //设置新宿舍的实际人数为0
-        dormitoryDTO.setActualCapacity(0);//只做新增空宿舍的功能
+        if(ActualCapacity==null){
+            dormitoryDTO.setActualCapacity(0);
+        }
         dormitoryMapper.insertdormitory(dormitoryDTO);
 
     }
+//    @Override
+//    public void saveDormitory(DormitoryDTO dormitoryDTO) {
+//        //设置新宿舍的实际人数为0
+//        dormitoryDTO.setActualCapacity(0);//只做新增空宿舍的功能
+//        dormitoryMapper.insertdormitory(dormitoryDTO);
+//
+//    }
 
     /**
      * 根据宿舍Id查询宿舍用于修改宿舍的页面回显便于修改
@@ -113,6 +148,32 @@ public class DormitoryServiceImpl implements DormitoryService {
                 //没有学生根据宿舍id集合批量删除宿舍
                 dormitoryMapper.deleteByIds(ids);
             }
+    }
 
+
+    /**
+     * 首页Echarts 查询所有宿舍号用于条形图的x轴显示
+     */
+    @Override
+    public List<String> getDormitoryNumber() {
+        List<String > dormitoryNumberList =dormitoryMapper.selectAll();
+        return dormitoryNumberList;
+    }
+    /**
+     * 主页 住宿人数
+     */
+    @Override
+    public Long selectHaveRoomStudentNum() {
+        Long dormitoryStudentNum= dormitoryMapper.selectAllDormitoryStudentNum();
+        return dormitoryStudentNum;
+    }
+    /**
+     * 首页顶部：空宿舍统计
+     */
+    @Override
+    public int emptydormitory() {
+        int actualCapacity=0;
+        int emptyDormitoryNum=dormitoryMapper.selectEmptyDormitory(actualCapacity);
+        return emptyDormitoryNum;
     }
 }

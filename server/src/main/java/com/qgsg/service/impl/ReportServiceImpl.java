@@ -32,6 +32,7 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private SignService signService;
 
+
     /**
      * 统计指定时间区间内的签到信息
      *

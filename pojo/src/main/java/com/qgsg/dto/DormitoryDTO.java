@@ -12,5 +12,7 @@ public class DormitoryDTO {
 
     private int accommodationCapacity;
 
+    private int buildingId;
+
     private int actualCapacity;
 }

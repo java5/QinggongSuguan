@@ -1,6 +1,7 @@
 package com.qgsg.interceptor;
 
 import com.qgsg.constant.JwtClaimsConstant;
+import com.qgsg.context.BaseContext;
 import com.qgsg.controller.admin.ZhuceController;
 import com.qgsg.properties.JwtProperties;
 import com.qgsg.utils.JwtUtil;
@@ -55,7 +56,9 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             log.info("jwt校验:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
             Long empId = Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());
-            log.info("当前教师id：", empId);
+            log.info("当前教师id：{}", empId);
+            //把id设置到线程中
+            BaseContext.setCurrentId(empId);
             //3、通过，放行
             return true;
         } catch (Exception ex) {
