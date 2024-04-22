@@ -10,9 +10,9 @@
     <update id="updateDormitory">
         update dormitory
         <set>
-            <if test="dormitoryNumber != null">
-                dormitory_number = #{dormitoryNumber},
-            </if>
+<!--            <if test="dormitoryNumber != null">-->
+<!--                dormitory_number = #{dormitoryNumber},-->
+<!--            </if>-->
             <if test="accommodationCapacity != null">
                 accommodation_capacity = #{accommodationCapacity},
             </if>
@@ -23,7 +23,7 @@
                 building_number = #{buildingNumber},
             </if>
         </set>
-        where id = #{id}
+        where dormitory_number = #{dormitoryNumber}
     </update>
     <delete id="deleteByIds">
         delete from dormitory where id in

@@ -1,22 +1,23 @@
 package com.qgsg.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.qgsg.constant.MessageConstant;
-import com.qgsg.constant.StatusConstant;
-import com.qgsg.controller.admin.MqttController;
-import com.qgsg.dto.StudentDTO;
 import com.qgsg.dto.TeacherDTO;
 import com.qgsg.dto.TeacherLoginDTO;
-import com.qgsg.entity.Student;
+import com.qgsg.dto.TeacherPageQueryDTO;
 import com.qgsg.entity.Teacher;
-import com.qgsg.exception.AccountLockedException;
 import com.qgsg.exception.AccountNotFoundException;
 import com.qgsg.exception.PasswordErrorException;
+import com.qgsg.exception.UsernameExistException;
 import com.qgsg.mapper.TeacherMapper;
+import com.qgsg.result.PageResult;
 import com.qgsg.service.TeacherService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
+
+import java.util.List;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -45,17 +46,11 @@ public class TeacherServiceImpl implements TeacherService {
         }
 
         //密码比对
-        password = DigestUtils.md5DigestAsHex(password.getBytes());
+//        password = DigestUtils.md5DigestAsHex(password.getBytes());
         if (!password.equals(teacher.getPassword())) {
             //密码错误
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
         }
-
-//        if (teacher.getStatus() == StatusConstant.DISABLE) {
-//            //账号被锁定
-//            throw new AccountLockedException(MessageConstant.ACCOUNT_LOCKED);
-//        }
-
 
         //3、返回实体对象
         return teacher;
@@ -68,9 +63,14 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     public void save(TeacherDTO teacherDTO) {
-        Teacher teacher= new Teacher();
-        BeanUtils.copyProperties(teacherDTO,teacher);
-        teacherMapper.insert(teacher);
+        Teacher Username = teacherMapper.getByUsername(teacherDTO.getUsername());
+        if(Username!=null){
+            throw new UsernameExistException(MessageConstant.ACCOUNT_FOUND);
+        }else {
+            Teacher teacher= new Teacher();
+            BeanUtils.copyProperties(teacherDTO,teacher);
+            teacherMapper.insert(teacher);
+        }
     }
 
 
@@ -80,10 +80,24 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     public void updateTeacher(TeacherDTO teacherDTO) {
-        Teacher teacher= new Teacher();
-        BeanUtils.copyProperties(teacherDTO,teacher);
-        teacherMapper.update(teacher);
+        Teacher teacher1 = teacherMapper.selectById(teacherDTO.getId());
+        if(!teacher1.getUsername().equals(teacherDTO.getUsername())){
+            Teacher Username = teacherMapper.getByUsername(teacherDTO.getUsername());
+            if(Username!=null){
+                throw new UsernameExistException(MessageConstant.ACCOUNT_FOUND);
+            }
+        } else {
+            Teacher teacher = new Teacher();
+            BeanUtils.copyProperties(teacherDTO, teacher);
+            teacherMapper.update(teacher);
+        }
     }
+//    @Override
+//    public void updateTeacher(TeacherDTO teacherDTO) {
+//        Teacher teacher= new Teacher();
+//        BeanUtils.copyProperties(teacherDTO,teacher);
+//        teacherMapper.update(teacher);
+//    }
 
     /**
      * 删除管理员
@@ -91,7 +105,20 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     public void deleteTeacher(int id) {
-    teacherMapper.deleteById(id);
+        teacherMapper.deleteById(id);
     }
 
+    /**
+     * 分页
+     * @param teacherPageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult page(TeacherPageQueryDTO teacherPageQueryDTO) {
+        PageHelper.startPage(teacherPageQueryDTO.getPage(), teacherPageQueryDTO.getPageSize());
+        Page<Teacher> page = teacherMapper.page(teacherPageQueryDTO);
+        long total = page.getTotal();
+        List<Teacher> records = page.getResult();
+        return new PageResult(total, records);
+    }
 }

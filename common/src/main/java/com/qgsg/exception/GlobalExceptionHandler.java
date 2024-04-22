@@ -1,4 +1,4 @@
-package com.qgsg.handler;
+package com.qgsg.exception;
 
 import com.qgsg.exception.BaseException;
 import com.qgsg.result.Result;

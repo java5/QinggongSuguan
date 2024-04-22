@@ -27,7 +27,7 @@ public class DormitoryController {
      * @param dormitoryPageQueryDTO
      * @return
      */
-    @GetMapping("/dormitoryPage")
+    @GetMapping("/page")
     @ApiOperation("宿舍分页查询")
     public Result<PageResult> page(DormitoryPageQueryDTO dormitoryPageQueryDTO){
         log.info("宿舍分页查询：{}",dormitoryPageQueryDTO);
@@ -39,7 +39,7 @@ public class DormitoryController {
      * @param dormitoryDTO
      * @return
      */
-    @PostMapping
+    @PostMapping("/insert")
     @ApiOperation("新增宿舍")
     public Result save(@RequestBody DormitoryDTO dormitoryDTO){
         log.info("新增宿舍：{}",dormitoryDTO);
@@ -51,7 +51,19 @@ public class DormitoryController {
      * @param id
      * @return
      */
-    @GetMapping("/{id}")
+//    @GetMapping("/select/{id}")
+//    @ApiOperation("根据宿舍Id查询宿舍")
+//    public Result<DormitoryVO> getDormitory(@PathVariable int id){
+//        log.info("宿舍id:{}",id);
+//        DormitoryVO dormitoryVO=dormitoryService.getDormitory(id);
+//        return Result.success(dormitoryVO);
+//    }
+    /**
+     * 根据宿舍Id查询宿舍用于修改宿舍的页面回显便于修改
+     * @param id
+     * @return
+     */
+    @GetMapping("/list")
     @ApiOperation("根据宿舍Id查询宿舍用于修改宿舍的页面回显便于修改")
     public Result<DormitoryVO> getDormitory(@PathVariable int id){
         log.info("宿舍id:{}",id);
@@ -63,7 +75,7 @@ public class DormitoryController {
      * @param dormitoryDTO
      * @return
      */
-    @PutMapping
+    @PutMapping("/update")
     @ApiOperation("修改宿舍")
     public Result update(@RequestBody DormitoryDTO dormitoryDTO){
         log.info("修改宿舍:{}",dormitoryDTO);
@@ -75,11 +87,36 @@ public class DormitoryController {
      * @param ids
      * @return
      */
-    @DeleteMapping
+    @DeleteMapping("/delete")
     @ApiOperation("宿舍批量删除")
     public Result delete(@RequestParam List<Long> ids){
         log.info("宿舍批量删除：{}",ids);
         dormitoryService.deleteBatch(ids);
         return Result.success();
+    }
+
+    /**
+     * 首页Echarts 查询所有宿舍号用于条形图的x轴显示
+     */
+    @GetMapping("/getDormitoryNumber")
+    public Result<List<String>> getBuildingName() {
+        List<String> dormitoryNumbers = dormitoryService.getDormitoryNumber();
+        return Result.success(dormitoryNumbers);
+    }
+    /**
+     * 主页 住宿人数
+     */
+    @GetMapping("/selectHaveRoomStudentNum")
+    public Result<Long> selectHaveRoomStudentNum() {
+        Long count = dormitoryService.selectHaveRoomStudentNum();
+        return Result.success(count);
+    }
+    /**
+     * 首页顶部：空宿舍统计
+     */
+    @GetMapping("/emptydormitory")
+    public Result<Integer> emptydormitory() {
+        int num = dormitoryService.emptydormitory();
+        return Result.success(num);
     }
 }

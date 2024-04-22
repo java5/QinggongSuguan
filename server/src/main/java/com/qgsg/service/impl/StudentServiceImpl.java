@@ -6,9 +6,12 @@ import com.qgsg.constant.MessageConstant;
 import com.qgsg.dto.StudentDTO;
 import com.qgsg.dto.StudentPageQueryDTO;
 import com.qgsg.entity.Dormitory;
+import com.qgsg.entity.Sign;
 import com.qgsg.entity.Student;
 import com.qgsg.exception.InsufficientCapacityException;
+import com.qgsg.exception.UsernameExistException;
 import com.qgsg.mapper.DormitoryMapper;
+import com.qgsg.mapper.SignMapper;
 import com.qgsg.mapper.StudentMapper;
 import com.qgsg.result.PageResult;
 import com.qgsg.service.StudentService;
@@ -37,12 +40,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void saveStudent(StudentDTO studentDTO) {
         Student student = new Student();
-        if (student.getFingerPrint() == null) {
-            student.setFingerPrint("默认指纹信息");
-        }
         student.setSignTime(LocalDateTime.now());
         student.setSignStatus(0);
         Dormitory dormitory=dormitoryMapper.selectDormitory(studentDTO.getDormitoryNumber());
+        log.info("dormitory:{}",dormitory);
+        if(dormitory == null)
+            throw new InsufficientCapacityException(MessageConstant.CAPACITY_NOT_ADEQUATE);
         if(dormitory.getActualCapacity()>=dormitory.getAccommodationCapacity())
         {
             throw new InsufficientCapacityException(MessageConstant.CAPACITY_NOT_ADEQUATE);
@@ -52,17 +55,12 @@ public class StudentServiceImpl implements StudentService {
             log.info("{}",student);
             studentMapper.insert(student);
         }
+        studentMapper.insertsign(student);
     }
-//    @Override
-//    public void saveStudent(StudentDTO studentDTO) {
-//        Student student = new Student();
-//        BeanUtils.copyProperties(studentDTO,student);
-//        student.setSignTime(LocalDateTime.now());
-//        student.setSignStatus(0);
-//        log.info("{}",student);
-//        studentMapper.insert(student);
-//    }
 
+
+    @Autowired
+    private SignMapper signMapper;
     /**
      * 修改学生信息
      * @param studentDTO
@@ -70,12 +68,15 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void updateStudent(StudentDTO studentDTO) {
         Student student= new Student();
+        Sign sign=new Sign();
         BeanUtils.copyProperties(studentDTO,student);
+        BeanUtils.copyProperties(studentDTO,sign);
         studentMapper.update(student);
+        signMapper.update(sign);
     }
 
     /**
-     * 根据学号查学生
+     * 分页查学生
      * @param studentPageQueryDTO
      */
     @Override
@@ -105,9 +106,35 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(List<String> numbers) {
         log.info("number:{}",numbers);
+        if(numbers == null) throw new UsernameExistException(MessageConstant.XUEHAOKONG);
         for(String number:numbers){
             log.info(number);
             studentMapper.deleteByNumber(number);
+            signMapper.deleteToSign1(number);
         }
+    }
+
+    @Override
+    public List<Student> getByDornumber(String dormitoryNumber) {
+        List<Student> student=studentMapper.getByDornumer(dormitoryNumber);
+        return student;
+    }
+
+
+    /**
+     * 主页顶部：学生统计
+     */
+    @Override
+    public int studentNum() {
+        int studentNum=studentMapper.selectAllNum();
+        return studentNum;
+    }
+    /**
+     * 获取所有学生信息
+     * @return
+     */
+    @Override
+    public List<Student> getStudtentAll() {
+        return studentMapper.findAll();
     }
 }

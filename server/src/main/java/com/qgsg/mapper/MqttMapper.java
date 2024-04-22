@@ -1,7 +1,6 @@
 package com.qgsg.mapper;
 
-import lombok.Setter;
-import org.apache.ibatis.annotations.Insert;
+import com.qgsg.entity.Mqtt;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDateTime;
@@ -10,4 +9,8 @@ import java.time.LocalDateTime;
 public interface MqttMapper {
     //@Insert("INSERT INTO student(number,sign_status,sign_time) VALUES(#{number}, #{signStatus},#{singTime})")
     void updatemqtt(String number, int signStatus, LocalDateTime signTime);
+
+
+    void insert(Mqtt mqtt);
+
 }

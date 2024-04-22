@@ -15,4 +15,14 @@
         where id = #{id}
     </update>
 
+    <select id="page" resultType="com.qgsg.entity.Teacher">
+        select * from housemaster
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by authority desc
+    </select>
+
 </mapper>

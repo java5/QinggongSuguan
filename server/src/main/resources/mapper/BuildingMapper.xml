@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qgsg.mapper.BuildingMapper">
+    <insert id="insert">
+        insert into dorbuilding (building_number,building_name,
+                                 building_detail)
+        values (#{buildingNumber},#{buildingName},#{buildingDetail})
+    </insert>
+    <update id="updateBuilding">
+        update dorbuilding
+        <set>
+            <if test="buildingName != null">
+                building_name = #{buildingName},
+            </if>
+            <if test="buildingDetail != null">
+                building_detail = #{buildingDetail},
+            </if>
+            <if test="buildingNumber != null">
+                building_number = #{buildingNumber},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="delete">
+        delete from dorbuilding where id =#{id}
+    </delete>
+    <select id="selectpage" resultType="com.qgsg.vo.BuildingVO">
+        select *  from dorbuilding
+        <where>
+            <if test="buildingName!=null">
+                and building_name=#{buildingName}
+            </if>
+            <if test="buildingNumber!=null">
+                and building_number=#{buildingNumber}
+            </if>
+        </where>
+    </select>
+
+</mapper>

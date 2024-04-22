@@ -10,4 +10,9 @@
         </set>
         where number = #{number}
     </update>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into sign (id,number, name,sign_status,sign_time,dormitory_number)
+        values (#{id},#{number},#{name},#{signStatus},#{signTime},#{dormitoryNumber})
+    </insert>
 </mapper>
