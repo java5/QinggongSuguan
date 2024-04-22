@@ -58,4 +58,28 @@ public interface DormitoryMapper {
      * @param ids
      */
     void deleteByIds(List<Long> ids);
+
+    /**
+     * 首页Echarts 查询所有宿舍号用于条形图的x轴显示
+     */
+    @Select("select dormitory_number from dormitory")
+    List<String> selectAll();
+    /**
+     * 主页 住宿人数
+     */
+    @Select("select sum(actual_capacity) from dormitory")
+    Long selectAllDormitoryStudentNum();
+    /**
+     * 首页顶部：空宿舍统计
+     */
+    @Select("select count(id) from dormitory where actual_capacity=#{actualCapacity}")
+    int selectEmptyDormitory(int actualCapacity);
+
+    /**
+     * 根据宿舍楼id查询宿舍信息
+     * @param buildingId
+     * @return
+     */
+    @Select("select * from dormitory where building_id=#{buildingId}")
+    List<Dormitory> selectByBuildingId(int buildingId);
 }

@@ -1,4 +1,4 @@
-package com.qgsg.entity;
+package com.qgsg.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,18 +11,18 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Teacher implements Serializable {
-
+public class TeacherVO implements Serializable {
     private Long id;
 
     private String username;
 
     private String name;
-
-    private String password;
+    private String sex;
+    private int age;
 
     private String phone;
 
-    private String authority;
+    private String password;
 
+    private String authority;
 }

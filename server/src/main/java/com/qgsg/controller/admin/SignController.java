@@ -2,6 +2,7 @@ package com.qgsg.controller.admin;
 
 import com.github.pagehelper.Page;
 import com.qgsg.dto.SignDTO;
+import com.qgsg.dto.SignPageQueryDTO;
 import com.qgsg.entity.Sign;
 import com.qgsg.result.PageResult;
 import com.qgsg.result.Result;
@@ -31,13 +32,13 @@ public class SignController {
      * @return
      */
     @GetMapping("/select")
-//    @GetMapping("/page")
     @ApiOperation("签到表分页查询")
-    public Result<PageResult> page(SignDTO signDTO){
+    public Result<PageResult> page1(SignDTO signDTO){
         log.info("签到表分页查询：{}",signDTO);
-        PageResult pageResult=signService.page(signDTO);
+        PageResult pageResult=signService.page1(signDTO);
         return Result.success(pageResult);
     }
+
 
     /**
      * 根据学号查询签到表信息
@@ -62,10 +63,15 @@ public class SignController {
     @ApiOperation("删除签到表")
     public Result delete(@RequestParam List<String> numbers){
         log.info("删除签到表");
-        signService.deleteSign(numbers);
+        signService.deleteSign1(numbers);
         return Result.success();
     }
 
+    /**
+     * 改签到表
+     * @param signDTO
+     * @return
+     */
     @PutMapping("/update")
     @ApiOperation("修改签到表")
     public Result update(@RequestBody SignDTO signDTO){
@@ -91,6 +97,34 @@ public class SignController {
     @GetMapping("/export")
     public Result export(HttpServletResponse response) throws IOException {
         signService.getexprot( response);
+        return Result.success();
+    }
+
+
+
+
+    /**
+     * 签到分页查询
+     * @param signPageQueryDTO
+     * @return
+     */
+    @GetMapping("/page")
+    @ApiOperation("签到表分页查询")
+    public Result<PageResult> page(SignPageQueryDTO signPageQueryDTO){
+        log.info("签到表分页查询：{}",signPageQueryDTO);
+        PageResult pageResult=signService.page(signPageQueryDTO);
+        return Result.success(pageResult);
+    }
+    /**
+     * 根据id删除签到表
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/delete/{id}")
+    @ApiOperation("删除签到表")
+    public Result delete(@PathVariable int id){
+        log.info("删除签到表id:{}",id);
+        signService.deleteSign(id);
         return Result.success();
     }
 }

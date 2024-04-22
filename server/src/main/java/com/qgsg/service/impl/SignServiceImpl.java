@@ -7,6 +7,7 @@ import cn.hutool.poi.excel.ExcelWriter;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qgsg.dto.SignDTO;
+import com.qgsg.dto.SignPageQueryDTO;
 import com.qgsg.entity.Sign;
 import com.qgsg.exception.InsufficientCapacityException;
 import com.qgsg.mapper.SignMapper;
@@ -42,9 +43,9 @@ public class SignServiceImpl implements SignService {
      * @return
      */
     @Override
-    public PageResult page(SignDTO signDTO) {
+    public PageResult page1(SignDTO signDTO) {
         PageHelper.startPage(signDTO.getPage(),signDTO.getPageSize());
-        Page<SignVO> signVO = signMapper.signpage(signDTO);
+        Page<SignVO> signVO = signMapper.signpage1(signDTO);
         return new PageResult(signVO.getTotal(), signVO.getResult());
     }
 
@@ -56,11 +57,11 @@ public class SignServiceImpl implements SignService {
     }
 
     @Override
-    public void deleteSign(List<String> numbers) {
+    public void deleteSign1(List<String> numbers) {
         log.info("number:{}",numbers);
         for(String number:numbers){
             log.info(number);
-            signMapper.deleteToSign(number);
+            signMapper.deleteToSign1(number);
         }
     }
 
@@ -145,4 +146,31 @@ public class SignServiceImpl implements SignService {
         wr.close();
         IoUtil.close(System.out);
     }
+
+
+
+    /**
+     * 签到表分页查询
+     * @param signPageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult page(SignPageQueryDTO signPageQueryDTO) {
+        PageHelper.startPage(signPageQueryDTO.getPage(),signPageQueryDTO.getPageSize());
+        Page<SignVO> signVO = signMapper.signpage(signPageQueryDTO);
+        return new PageResult(signVO.getTotal(), signVO.getResult());
+    }
+    /**
+     * 根据id删除签到表
+     * @param id
+     * @return
+     */
+    @Override
+    public void deleteSign(int id) {
+        signMapper.deleteToSign(id);
+    }
+
+
+
+
 }

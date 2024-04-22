@@ -47,4 +47,9 @@ public interface RepairService {
      * @param id
      */
     void updateStatus(int id);
+
+    /**
+     * 首页顶部：报修统计
+     */
+    int showRepairNum();
 }
