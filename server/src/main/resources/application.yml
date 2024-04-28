@@ -1,5 +1,5 @@
 server:
-  port: 9090
+  port: 6060
 
 spring:
   profiles:
@@ -40,8 +40,8 @@ qgsg:
 
 com:
   mqtt:
-    url: wss://uaac0158.ala.cn-hangzhou.emqxsl.cn:8084 #tcp://broker.emqx.io #ws://127.0.0.1:8083 #wss://uaac0158.ala.cn-hangzhou.emqxsl.cn:8084
-    clientId: mqtt_qgsg_dev6
+    url: tcp://broker.emqx.io #tcp://broker.emqx.io #ws://127.0.0.1:8083 #wss://uaac0158.ala.cn-hangzhou.emqxsl.cn:8084
+    clientId: mqtt_qgsg_devj
     receiveTopics: chat/room/+
     sendTopics: chat/room/8101
     username: emqx

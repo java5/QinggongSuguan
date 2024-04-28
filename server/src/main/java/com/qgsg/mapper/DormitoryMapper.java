@@ -82,4 +82,14 @@ public interface DormitoryMapper {
      */
     @Select("select * from dormitory where building_id=#{buildingId}")
     List<Dormitory> selectByBuildingId(int buildingId);
+
+    /**
+     * 根据宿舍编号更新实际住宿人数。
+     *
+     * @param actualCapacity 要更新的新实际住宿人数。
+     * @param dormitoryNumber 宿舍的编号，作为更新记录的依据。
+     */
+    @Update("UPDATE dormitory SET actual_capacity = #{actualCapacity} WHERE dormitory_number = #{dormitoryNumber}")
+    void updateNumber(int actualCapacity, String dormitoryNumber);
+
 }

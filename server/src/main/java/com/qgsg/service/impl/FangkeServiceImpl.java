@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.qgsg.dto.FangkeDTO;
 import com.qgsg.dto.FangkePageQueryDTO;
 import com.qgsg.entity.Fangke;
+import com.qgsg.entity.Teacher;
 import com.qgsg.mapper.FangkeMapper;
 import com.qgsg.result.PageResult;
 import com.qgsg.service.FangkeService;
@@ -48,7 +49,16 @@ public class FangkeServiceImpl implements FangkeService {
     public PageResult page(FangkePageQueryDTO fangkePageQueryDTO) {
         PageHelper.startPage(fangkePageQueryDTO.getPage(),fangkePageQueryDTO.getPageSize());
         Page<Fangke> fangke = fangkeMapper.pageQuery(fangkePageQueryDTO);
-        return new PageResult(fangke.getTotal(), fangke.getResult());
+
+        long total = fangke.getTotal();
+        List<Fangke> records = fangke.getResult();
+
+        return new PageResult(total, records);
+
+//        long total = fangke.getTotal();
+//        List<Fangke> records = fangke.getResult();
+//
+//        return new PageResult(fangke.getTotal(), fangke.getResult());
     }
     /**
      * 根据查

@@ -24,7 +24,8 @@ public class OrderTask {
     /**
      * 处理学生签到状态，每天改回未签到状态（0）
      */
-    //@Scheduled(cron = "1 * * * * ? ")//每分钟触发一次
+//    @Scheduled(cron = "1 * * * * ? ")//每分钟触发一次
+//    @Scheduled(cron = "0/10 * * * * ?")////每10秒
     @Scheduled(cron = "0 0 1 * * ? ")//每天凌晨一点触发
     public void processTimeOutOrder(){
 

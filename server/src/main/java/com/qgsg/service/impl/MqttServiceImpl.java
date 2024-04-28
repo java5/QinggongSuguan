@@ -40,13 +40,13 @@ public class MqttServiceImpl implements MqttService {
         log.info("mpl:number{},status{},time{}",number,signStatus,signTime);
 
         List<Sign> sign = signMapper.getByNum(number);
-        log.info("学生签到表信息{}",sign);
+        log.info("学生签到表信息{}",sign);//遍历签到表，获取最后一个签到时间保存，用于下面比较
 
         int i=1;
         LocalDateTime date = null;
         for (Sign s : sign) {
             LocalDateTime signTimes = s.getSignTime();
-            date = signTimes;
+            date = signTimes;//传入的时间
             log.info("{},更新签到时间：{},date:{}",i++, signTimes,date);
         }
 
@@ -63,7 +63,7 @@ public class MqttServiceImpl implements MqttService {
 
         LocalDateTime now = LocalDateTime.now();
 
-        // 设置判断范围的起始和结束时间
+        // 设置判断范围的起始和结束时间-8:00到22点
         LocalTime startTime = LocalTime.of(8, 0);
         LocalTime endTime = LocalTime.of(22, 0);
 

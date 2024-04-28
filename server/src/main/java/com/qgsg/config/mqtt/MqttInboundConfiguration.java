@@ -24,6 +24,8 @@ import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.*;
 
+import java.time.LocalDate;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -61,8 +63,8 @@ public class MqttInboundConfiguration {
         options.setUserName(mqttProperties.getUsername());
         options.setPassword(mqttProperties.getPassword().toCharArray());
         options.setKeepAliveInterval(2);
-        //接受离线消息
-        options.setCleanSession(false);
+        //不接受离线消息
+        options.setCleanSession(true);
         factory.setConnectionOptions(options);
 
         return factory;
@@ -107,7 +109,7 @@ public class MqttInboundConfiguration {
                 String recvTopic = (String) messageHeaders.get(MqttHeaders.RECEIVED_TOPIC);
                 // 检查主题并处理消息
                 assert recvTopic != null;
-                if (recvTopic.startsWith("chat/room/8101")) {
+                if (recvTopic.startsWith("chat/room")) {
                     String handMessage = (String) payload;//接收的
                     lastReceivedMessage = (String) payload;
                     LOGGER.debug(handMessage);
@@ -120,11 +122,11 @@ public class MqttInboundConfiguration {
                 JSONObject jsonObject = JSONObject.parseObject(json);
                 log.info("jsonObject对象为:{}", jsonObject);
 
-                // 解析 message 字段
+//                // 解析 message 字段
 //                String messages = jsonObject.getString("message");
 //                System.out.println("Message: " + messages);
 //                LocalDate yesterday = LocalDate.now();
-                //开始解析
+////                开始解析
 //                if(Objects.equals(messages, "reset_data")) {
 //                    log.info("当天：{}",yesterday);//日期无误
 //                }
@@ -152,7 +154,7 @@ public class MqttInboundConfiguration {
                         String studentId = student.getString("studentId");
                         String name = student.getString("name");
                         boolean checkInStatus = student.getBooleanValue("checkInStatus");
-//                        boolean leaveStatus = student.getBooleanValue("leaveStatus");
+//                        boolean leaveStatus = student.getBooleanValue("leaveStatus");//未设置请假信息
                         if (checkInStatus /*&& !leaveStatus*/) {
                             log.info("签到成功的添加到签到表");
                             mqttDTO.setDormitoryNumber(dormitoryNumber);

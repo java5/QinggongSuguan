@@ -45,8 +45,9 @@ public class FangkeController {
     @GetMapping("/select/{name}")
     @ApiOperation("根据姓名查询访客信息")
     public Result<Fangke> getByNubmer(@PathVariable String name){
-        log.info("{}",name);
+        log.info("name为：{}",name);
         Fangke fangke = fangkeService.getByName(name);
+        log.info("查询结果为：{}",fangke);
         return Result.success(fangke);
     }
     @DeleteMapping("/delete")

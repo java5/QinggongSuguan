@@ -24,10 +24,10 @@ public interface FangkeMapper {
     /**
      * 分页查询
      *
-     * @param studentPageQueryDTO
+     * @param fangkePageQueryDTO
      * @return
      */
-    Page<Fangke> pageQuery(FangkePageQueryDTO studentPageQueryDTO);
+    Page<Fangke> pageQuery(FangkePageQueryDTO fangkePageQueryDTO);
 
     /**
      * 根据查

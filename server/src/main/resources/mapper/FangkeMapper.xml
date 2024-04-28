@@ -24,8 +24,8 @@
     <select id="pageQuery" resultType="com.qgsg.entity.Fangke">
         select *  from fangke
         <where>
-            <if test="name!=null">
-                and d.name like concat('%',#{name},'%')
+            <if test="name!=null and name != ''">
+                and name like concat('%',#{name},'%')
             </if>
         </where>
     </select>
