@@ -1,6 +1,8 @@
 package com.qgsg.config.mqtt;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.qgsg.dto.MqttDTO;
 import com.qgsg.service.IOTSensorService;
@@ -116,9 +118,12 @@ public class MqttInboundConfiguration {
                     System.out.println(lastReceivedMessage);
                 }
                 String json = lastReceivedMessage;
-                log.info("packet:{},qos:{},接收的json:{}", packetId,qos,json);
-                MqttDTO mqttDTO = new MqttDTO();
-
+                log.info("接收的json:{}", json);
+                try {
+                    JSON.parseObject(json);
+                } catch (JSONException e) {
+                    return;
+                }
                 JSONObject jsonObject = JSONObject.parseObject(json);
                 log.info("jsonObject对象为:{}", jsonObject);
 
@@ -143,7 +148,7 @@ public class MqttInboundConfiguration {
 //                接收学生签到表
                 JSONObject dormitory = jsonObject.getJSONObject("dormitory");
                 log.info("dormitory:{}", dormitory);
-
+                MqttDTO mqttDTO = new MqttDTO();
                 if (dormitory != null) {
                     log.info("宿舍为{}",dormitory);
                     String dormitoryNumber = dormitory.getString("dormitoryNumber");

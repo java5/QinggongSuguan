@@ -30,8 +30,8 @@ public class MqttSend {
 
             System.out.println("Message published to topic: " + sendTopic);
 
-            // 可选，保持连接并在发布后断开
-            client.disconnect();
+            // 可选，保持连接并在发布后断开-不选了
+//            client.disconnect();
 
         } catch (MqttException e) {
             e.printStackTrace();
